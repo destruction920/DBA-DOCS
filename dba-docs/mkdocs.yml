@@ -1,0 +1,27 @@
+site_name: DBA Knowledge Base
+site_description: Central repository for Oracle/PostgreSQL DBA documentation
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+  features:
+    - navigation.instant
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - awesome-pages   # auto-generates nav from folder structure, no manual nav: list to maintain
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - tables
+
+docs_dir: docs
