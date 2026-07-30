@@ -1,4 +1,4 @@
-# Comprehensive PostgreSQL Self-Hosted Deployment Runbook
+# PostgreSQL Selfhosted Technical Deployment Runbook
 
 This runbook describes the end-to-end installation, tuning, configuration, and Business Continuity Planning (BCP) setup for a self-hosted PostgreSQL database cluster on Azure's Red Hat Enterprise Linux (RHEL) 8 VM.
 

@@ -1,4 +1,4 @@
-# Executive Runbook: Self-Hosted PostgreSQL Deployment
+# PostgreSQL Selfhosted Deployment Management Runbook
 
 ## 1. Executive Summary
 This document outlines the high-level workflow, strategic decisions, and Business Continuity Planning (BCP) implemented for the self-hosted PostgreSQL database cluster. It is designed for management and architectural review, omitting the low-level shell scripts, code, and terminal commands found in the technical runbook.
