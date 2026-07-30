@@ -1,0 +1,1091 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Central repository for Oracle/PostgreSQL DBA documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../../..">
+      
+      
+        <link rel="next" href="../PostgreSQL%20Selfhosted%20Technical%20Deployment%20Runbook/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Executive Runbook: Self-Hosted PostgreSQL Deployment - DBA Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#executive-runbook-self-hosted-postgresql-deployment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="DBA Knowledge Base" class="md-header__button md-logo" aria-label="DBA Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DBA Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Executive Runbook: Self-Hosted PostgreSQL Deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="DBA Knowledge Base" class="md-nav__button md-logo" aria-label="DBA Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DBA Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBA Knowledge Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    POSTGRESQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    POSTGRESQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PG SELFHOSTED DEPLOYMENT RUNBOOK
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PG SELFHOSTED DEPLOYMENT RUNBOOK
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Runbook: Self-Hosted PostgreSQL Deployment
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Runbook: Self-Hosted PostgreSQL Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-strategic-rationale-why-self-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Strategic Rationale: Why Self-Hosted?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deployment-flow-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deployment Flow &amp; Phases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deployment Flow &amp; Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-infrastructure-operating-system-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Infrastructure &amp; Operating System Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-automated-resource-tuning-auto-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Automated Resource Tuning (Auto-Tuning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-engine-parameter-tuning-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Engine Parameter Tuning &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-operational-application-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Operational &amp; Application Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-business-continuity-disaster-recovery-bcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Business Continuity &amp; Disaster Recovery (BCP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Business Continuity &amp; Disaster Recovery (BCP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-backup-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Backup Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-automated-housekeeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Automated Housekeeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-high-availability-via-physical-streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 High Availability via Physical Streaming Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-recovery-objectives-rto-rpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Recovery Objectives (RTO &amp; RPO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-observability-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Observability &amp; Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Observability &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-monitoring-telemetry-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Monitoring &amp; Telemetry Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-historical-data-archiving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Historical Data Archiving
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-work-governance-ownership-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Work Governance &amp; Ownership Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Selfhosted%20Technical%20Deployment%20Runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprehensive PostgreSQL Self-Hosted Deployment Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-strategic-rationale-why-self-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Strategic Rationale: Why Self-Hosted?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deployment-flow-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deployment Flow &amp; Phases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deployment Flow &amp; Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-infrastructure-operating-system-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Infrastructure &amp; Operating System Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-automated-resource-tuning-auto-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Automated Resource Tuning (Auto-Tuning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-engine-parameter-tuning-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Engine Parameter Tuning &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-operational-application-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Operational &amp; Application Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-business-continuity-disaster-recovery-bcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Business Continuity &amp; Disaster Recovery (BCP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Business Continuity &amp; Disaster Recovery (BCP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-backup-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Backup Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-automated-housekeeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Automated Housekeeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-high-availability-via-physical-streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 High Availability via Physical Streaming Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-recovery-objectives-rto-rpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Recovery Objectives (RTO &amp; RPO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-observability-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Observability &amp; Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Observability &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-monitoring-telemetry-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Monitoring &amp; Telemetry Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-historical-data-archiving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Historical Data Archiving
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-work-governance-ownership-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Work Governance &amp; Ownership Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="executive-runbook-self-hosted-postgresql-deployment">Executive Runbook: Self-Hosted PostgreSQL Deployment<a class="headerlink" href="#executive-runbook-self-hosted-postgresql-deployment" title="Permanent link">&para;</a></h1>
+<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>This document outlines the high-level workflow, strategic decisions, and Business Continuity Planning (BCP) implemented for the self-hosted PostgreSQL database cluster. It is designed for management and architectural review, omitting the low-level shell scripts, code, and terminal commands found in the technical runbook.</p>
+<p>The deployment leverages a self-hosted architecture on an Azure Red Hat Enterprise Linux (RHEL) 8 Virtual Machine to ensure maximum performance isolation, deeper hardware control, and custom Business Continuity pipelines.</p>
+<h2 id="2-strategic-rationale-why-self-hosted">2. Strategic Rationale: Why Self-Hosted?<a class="headerlink" href="#2-strategic-rationale-why-self-hosted" title="Permanent link">&para;</a></h2>
+<p>While managed cloud databases (like Azure Flexible Server) offer convenience, our strategic requirements dictate a self-hosted approach:
+- <strong>Public IP &amp; Accessibility:</strong> Accommodates tools like Qlik which require public IP endpoints (Azure PaaS typically restricts databases to private IPs).
+- <strong>Direct Read Replica Access:</strong> Fulfills strict customer demands for direct access to read replicas.
+- <strong>Hardware &amp; Performance Isolation:</strong> Ensures large databases are isolated on dedicated VMs to prevent "noisy neighbor" latency.
+- <strong>Cost Efficiency (IaaS vs. PaaS):</strong> Leveraging an Infrastructure-as-a-Service (IaaS) model to manage a self-hosted VM is significantly more cost-effective than equivalent fully managed Platform-as-a-Service (PaaS) tiers.</p>
+<h2 id="3-deployment-flow-phases">3. Deployment Flow &amp; Phases<a class="headerlink" href="#3-deployment-flow-phases" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-infrastructure-operating-system-configuration">Phase 1: Infrastructure &amp; Operating System Configuration<a class="headerlink" href="#phase-1-infrastructure-operating-system-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Objective:</strong> Prepare the underlying server for high-performance database operations.
+- <strong>Storage Expansion:</strong> Disks are managed using Logical Volume Management (LVM), allowing storage to be dynamically expanded on-the-fly without system downtime.
+- <strong>Resource Allocation Check:</strong> CPU, RAM, and Disk allocations are audited before any configuration to ensure they meet the projected database sizing.
+- <strong>Process Isolation:</strong> Legacy default cron jobs [Linux Schedulers] are suspended to ensure a clean deployment slate.</p>
+<h3 id="phase-2-automated-resource-tuning-auto-tuning">Phase 2: Automated Resource Tuning (Auto-Tuning)<a class="headerlink" href="#phase-2-automated-resource-tuning-auto-tuning" title="Permanent link">&para;</a></h3>
+<p><strong>Objective:</strong> Ensure the database always utilizes optimal hardware resources.
+- PostgreSQL natively does not automatically scale its memory parameters if the VM's RAM or CPU is upgraded. 
+- To solve this, a custom <strong>Auto-Tuning Hook</strong> is integrated into the server's boot sequence. Every time the server starts, it checks the currently allocated RAM and CPU, calculates optimal memory limits (e.g., <code>shared_buffers</code>, <code>work_mem</code>), and reconfigures the database dynamically before it comes online.</p>
+<h3 id="phase-3-engine-parameter-tuning-optimization">Phase 3: Engine Parameter Tuning &amp; Optimization<a class="headerlink" href="#phase-3-engine-parameter-tuning-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>Objective:</strong> Configure the PostgreSQL engine for optimal workloads.
+- <strong>Performance Tuning:</strong> Core database parameters (such as memory caching and processing limits) are customized to ensure fast, consistent response times for high-concurrency enterprise workloads.
+- <strong>Maintenance Automation:</strong> Background cleanup processes are optimized to maintain long-term database health and prevent performance degradation without manual intervention.
+- <strong>Data Integration Preparedness:</strong> The database is pre-configured to easily and securely stream real-time data changes to downstream analytics tools.</p>
+<h3 id="phase-4-operational-application-extensions">Phase 4: Operational &amp; Application Extensions<a class="headerlink" href="#phase-4-operational-application-extensions" title="Permanent link">&para;</a></h3>
+<p><strong>Objective:</strong> Provision necessary database plugins to support security auditing, performance monitoring, and application functionality.
+- <strong>Security &amp; Performance Monitoring:</strong> Core extensions (such as <code>pgaudit</code>, <code>pg_stat_statements</code>, and <code>pg_cron</code>) are configured to enforce strict compliance logging, track real-time query execution metrics, and automate internal maintenance jobs.
+- <strong>Application Functionality:</strong> A standardized suite of application-facing extensions (including cryptographic functions, foreign-data wrappers, and advanced string matching) are installed and created to fulfill all application dependencies, as detailed in the technical deployment runbook.</p>
+<h2 id="4-business-continuity-disaster-recovery-bcp">4. Business Continuity &amp; Disaster Recovery (BCP)<a class="headerlink" href="#4-business-continuity-disaster-recovery-bcp" title="Permanent link">&para;</a></h2>
+<p>The disaster recovery strategy is designed to ensure near zero data loss and rapid recovery capability. All backups are stored locally for immediate access and continuously synced to an offsite Azure Blob Storage container. To facilitate this, custom automated DBA scripts are prepared and deployed to autonomously manage all BCP, monitoring, backups, and storage purging tasks.</p>
+<h3 id="41-backup-architecture">4.1 Backup Architecture<a class="headerlink" href="#41-backup-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Continuous Archiving (Point-in-Time Recovery):</strong> A dedicated WAL pipeline continuously streams transaction logs to Azure Blob Storage, enabling database restoration to the exact minute of failure. <em>(Note: PITR is manually enabled post-migration to avoid archiving massive initial migration data).</em></li>
+<li><strong>Full Physical Backups:</strong> A complete daily backup is taken automatically to serve as a solid restoration baseline.</li>
+</ul>
+<h3 id="42-automated-housekeeping">4.2 Automated Housekeeping<a class="headerlink" href="#42-automated-housekeeping" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Operational Automation:</strong> Automated housekeeping scripts are deployed to the newly provisioned VM to autonomously manage all routine DBA tasks.</li>
+</ul>
+<h3 id="43-high-availability-via-physical-streaming-replication">4.3 High Availability via Physical Streaming Replication<a class="headerlink" href="#43-high-availability-via-physical-streaming-replication" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Real-Time Redundancy:</strong> To ensure high availability (HA) and rapid failover capabilities, a physical standby (replica) node is configured to synchronize with the primary database.</li>
+<li><strong>Continuous Syncing:</strong> The architecture utilizes Physical Streaming Replication to stream Write-Ahead Log (WAL) records in real-time. This guarantees that the standby remains continuously up-to-date, drastically minimizing potential data loss (RPO) compared to traditional batch log shipping.</li>
+</ul>
+<h3 id="44-recovery-objectives-rto-rpo">4.4 Recovery Objectives (RTO &amp; RPO)<a class="headerlink" href="#44-recovery-objectives-rto-rpo" title="Permanent link">&para;</a></h3>
+<p>Based on the implemented business continuity architecture, the targeted recovery metrics are defined below:</p>
+<table>
+<thead>
+<tr>
+<th>Architecture Model</th>
+<th>Recovery Point Objective (RPO)</th>
+<th>Recovery Time Objective (RTO)</th>
+<th>Failover Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Self-Hosted PostgreSQL (without Streaming Replication)</strong></td>
+<td>5 Minutes (via continuous WAL archiving)</td>
+<td>1 - 3 Hours</td>
+<td>Restore + PITR</td>
+</tr>
+<tr>
+<td><strong>Self-Hosted PostgreSQL (with Streaming Replication)</strong></td>
+<td>Near-Zero</td>
+<td>5 - 15 Minutes (Ideal Conditions)</td>
+<td>Manual Promotion</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-observability-monitoring">5. Observability &amp; Monitoring<a class="headerlink" href="#5-observability-monitoring" title="Permanent link">&para;</a></h2>
+<h3 id="51-monitoring-telemetry-stack">5.1 Monitoring &amp; Telemetry Stack<a class="headerlink" href="#51-monitoring-telemetry-stack" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Proactive Observability:</strong> The monitoring stack is fully configured using Node Exporter, PostgreSQL Exporter, SQL Exporter, Prometheus and Grafana. Additional establishment includes: Heartbeat mechanisms , alerting logs and custom scripting deployment for proactive system monitoring.</li>
+</ul>
+<h3 id="52-historical-data-archiving">5.2 Historical Data Archiving<a class="headerlink" href="#52-historical-data-archiving" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PGGDBA Configuration:</strong> A dedicated local database (<code>pggdba</code>) is provisioned to capture, store, and analyze historical data regarding database growth, size, and operational trends.</li>
+</ul>
+<h2 id="6-work-governance-ownership-matrix">6. Work Governance &amp; Ownership Matrix<a class="headerlink" href="#6-work-governance-ownership-matrix" title="Permanent link">&para;</a></h2>
+<p>To ensure clear accountability and seamless hand-offs during the deployment lifecycle, the following matrix defines the ownership and operational responsibilities for each implementation phase.</p>
+<table>
+<thead>
+<tr>
+<th>Implementation Phase</th>
+<th>Primary Owner</th>
+<th>Key Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phase 1: Clone Template Provisioning</strong></td>
+<td>Cloud Team</td>
+<td>Provisioning and cloning the initial RHEL 8 VM template, assigning network IPs, and attaching secondary data disks.</td>
+</tr>
+<tr>
+<td><strong>Phase 2: OS Host &amp; Storage Config</strong></td>
+<td>DBA Team</td>
+<td>Performing OS host changes and extending LVM partitions.</td>
+</tr>
+<tr>
+<td><strong>Phase 3: PostgreSQL Autotune Setup</strong></td>
+<td>DBA Team</td>
+<td>Deploying the systemd startup hooks to allow the database to dynamically adjust memory limits based on allocated VM hardware.</td>
+</tr>
+<tr>
+<td><strong>Phase 4: Engine Parameter Tuning</strong></td>
+<td>DBA Team</td>
+<td>Configuring core PostgreSQL parameters for optimized memory caching, parallel workers, and autovacuum limits.</td>
+</tr>
+<tr>
+<td><strong>Phase 5: Extensions</strong></td>
+<td>DBA Team</td>
+<td>Downloading and installing Linux RPM packages for PostgreSQL extensions.</td>
+</tr>
+<tr>
+<td><strong>Phase 6: Business Continuity (BCP)</strong></td>
+<td>DBA Team</td>
+<td>Deploying backup scripts, setting up Azure Storage integration, and configuring local log housekeeping.</td>
+</tr>
+<tr>
+<td><strong>Phase 7: Operations &amp; Monitoring</strong></td>
+<td>DBA Team</td>
+<td>Configuring Prometheus, Grafana, and Exporters; setting up daily diagnostic panels and Heartbeat alerting mechanisms.</td>
+</tr>
+<tr>
+<td><strong>Phase 8: PGGDBA Configuration</strong></td>
+<td>DBA Team</td>
+<td>Configuring a local database (<code>pggdba</code>) to store historical archiving data for database size, growth, and object tracking.</td>
+</tr>
+<tr>
+<td><strong>Phase 9: Service Verification</strong></td>
+<td>DBA Team</td>
+<td>Verifying configurations, parameters, database availability, and ensuring all Exporter and Prometheus services are running.</td>
+</tr>
+<tr>
+<td><strong>Phase 10: HA Replica VM Provisioning</strong></td>
+<td>Cloud Team</td>
+<td><em>(optional)</em> Provisioning and cloning the secondary RHEL 8 VM template for the replica server.</td>
+</tr>
+<tr>
+<td><strong>Phase 11: HA Replication Configuration</strong></td>
+<td>DBA Team</td>
+<td><em>(optional)</em> Configuring physical streaming replication for continuous syncing between primary and standby nodes.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> For comprehensive technical details and command-line instructions regarding the execution of each phase, please refer to the <strong>PostgreSQL Selfhosted Technical Deployment Runbook</strong>.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

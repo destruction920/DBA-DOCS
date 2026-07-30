@@ -1,0 +1,2955 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Central repository for Oracle/PostgreSQL DBA documentation">
+      
+      
+      
+      
+        <link rel="prev" href="../PostgreSQL%20Selfhosted%20Management%20Runbook/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Comprehensive PostgreSQL Self-Hosted Deployment Runbook - DBA Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#comprehensive-postgresql-self-hosted-deployment-runbook" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="DBA Knowledge Base" class="md-header__button md-logo" aria-label="DBA Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DBA Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Comprehensive PostgreSQL Self-Hosted Deployment Runbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="DBA Knowledge Base" class="md-nav__button md-logo" aria-label="DBA Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DBA Knowledge Base
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBA Knowledge Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    POSTGRESQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    POSTGRESQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PG SELFHOSTED DEPLOYMENT RUNBOOK
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PG SELFHOSTED DEPLOYMENT RUNBOOK
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Selfhosted%20Management%20Runbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executive Runbook: Self-Hosted PostgreSQL Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprehensive PostgreSQL Self-Hosted Deployment Runbook
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprehensive PostgreSQL Self-Hosted Deployment Runbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-runbook-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Runbook Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Runbook Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-self-hosted-postgresql-sh-pg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Self-Hosted PostgreSQL (SH PG)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prerequisites-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prerequisites &amp; Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-phase-1-operating-system-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Phase 1: Operating System Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Phase 1: Operating System Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cron-job-suspend-pre-configuration-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Cron Job Suspend (Pre-configuration Safety)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-lvm-partition-extension-pgdata-disk-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 LVM Partition Extension (PGDATA Disk Expansion)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 LVM Partition Extension (PGDATA Disk Expansion)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory-logical-volume-management-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory: Logical Volume Management (LVM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-to-be-executed-as-root-user-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands [To Be Executed as Root User only]:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-hostname-and-network-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Hostname and Network Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-cleanup-of-legacy-postgresql-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Cleanup of Legacy PostgreSQL Directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-phase-2-postgresql-systemd-auto-tuning-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phase 2: PostgreSQL Systemd Auto-Tuning Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phase 2: PostgreSQL Systemd Auto-Tuning Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-theory-dynamic-tuning-on-vm-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Theory: Dynamic Tuning on VM Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-deploying-the-auto-tune-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Deploying the Auto-Tune Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-script-permissions-selinux-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Script Permissions &amp; SELinux Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Script Permissions &amp; SELinux Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory-selinux-policies-on-custom-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory: SELinux Policies on Custom Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-hooking-script-into-postgresql-systemd-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Hooking Script into PostgreSQL Systemd Unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-phase-3-database-engine-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Phase 3: Database Engine Parameter Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Phase 3: Database Engine Parameter Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-theory-key-parameter-tuning-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Theory: Key Parameter Tuning in PostgreSQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Theory: Key Parameter Tuning in PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-management-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Management Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-modifying-parameters-in-postgresqlconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Modifying parameters in postgresql.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-phase-4-postgresql-extensions-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Phase 4: PostgreSQL Extensions Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Phase 4: PostgreSQL Extensions Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-theoretical-overview-of-selected-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Theoretical Overview of Selected Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-step-1-downloading-installing-packages-yumrpm-it-will-be-available-with-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Step 1: Downloading &amp; Installing packages (YUM/RPM) [it will be available with template]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-step-2-creating-extensions-inside-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Step 2: Creating Extensions inside Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-phase-5-backup-business-continuity-bcp-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Phase 5: Backup &amp; Business Continuity (BCP) Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Phase 5: Backup &amp; Business Continuity (BCP) Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-theory-backup-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Theory: Backup Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-directory-configuration-login-with-postgres-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Directory Configuration [login with postgres user]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-bcp-script-deployment-login-as-postgres-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 BCP Script Deployment [login as postgres user]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 BCP Script Deployment [login as postgres user]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-1-wal-archiving-u01gslblobsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 1: WAL Archiving (/u01/Gsl/BLOB.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-2-base-physical-backup-u01gslbasebkpsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 2: Base Physical Backup (/u01/Gsl/BASEBKP.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-3-old-backup-deletion-u01gsldelbasebkpsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 3: Old Backup Deletion (/u01/Gsl/DELBASEBKP.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-4-remote-archive-verification-u01gslarcnamesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 4: Remote Archive Verification (/u01/Gsl/ARCNAME.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-5-long-query-system-performance-analysis-u01gsllong_querysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 5: Long Query &amp; System Performance Analysis (/u01/Gsl/LONG_QUERY.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-6-azcopy-execution-logs-purge-u01gsldel_azcopy_logsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 6: AzCopy Execution Logs Purge (/u01/Gsl/DEL_AZCOPY_LOG.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-7-azure-monitor-agent-log-purge-u01gsldel_monitor_agentsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 7: Azure Monitor Agent Log Purge (/u01/Gsl/DEL_MONITOR_AGENT.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-phase-6-automated-operations-setup-cron-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Phase 6: Automated Operations Setup (Cron Jobs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Phase 6: Automated Operations Setup (Cron Jobs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-postgres-user-crontab-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Postgres User Crontab Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-root-user-crontab-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Root User Crontab Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-phase-7-exporter-monitoring-service-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Phase 7: Exporter &amp; Monitoring Service Verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Phase 7: Exporter &amp; Monitoring Service Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-verify-node-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Verify Node Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-verify-postgresql-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Verify PostgreSQL Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-verify-prometheus-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Verify Prometheus Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-phase-8-post-migration-wal-archiving-activation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Phase 8: Post-Migration WAL Archiving Activation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Phase 8: Post-Migration WAL Archiving Activation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-theory-point-in-time-recovery-pitr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Theory: Point In Time Recovery (PITR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-activation-process-post-oracle-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Activation Process (Post Oracle Migration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-phase-9-setting-up-physical-streaming-replication-after-go-live-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Phase 9: Setting up Physical Streaming Replication after go-Live [OPTIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Phase 9: Setting up Physical Streaming Replication after go-Live [OPTIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-streaming-replication-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Streaming Replication Theory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-replication-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Replication Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-replication-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Replication Slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-streaming-replication-setup-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 Streaming Replication Setup Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-monitoring-primary-and-standby-streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 Monitoring Primary and Standby Streaming Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-runbook-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Runbook Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Runbook Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-self-hosted-postgresql-sh-pg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Self-Hosted PostgreSQL (SH PG)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prerequisites-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prerequisites &amp; Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-phase-1-operating-system-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Phase 1: Operating System Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Phase 1: Operating System Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cron-job-suspend-pre-configuration-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Cron Job Suspend (Pre-configuration Safety)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-lvm-partition-extension-pgdata-disk-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 LVM Partition Extension (PGDATA Disk Expansion)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 LVM Partition Extension (PGDATA Disk Expansion)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory-logical-volume-management-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory: Logical Volume Management (LVM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-to-be-executed-as-root-user-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands [To Be Executed as Root User only]:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-hostname-and-network-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Hostname and Network Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-cleanup-of-legacy-postgresql-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Cleanup of Legacy PostgreSQL Directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-phase-2-postgresql-systemd-auto-tuning-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phase 2: PostgreSQL Systemd Auto-Tuning Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phase 2: PostgreSQL Systemd Auto-Tuning Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-theory-dynamic-tuning-on-vm-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Theory: Dynamic Tuning on VM Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-deploying-the-auto-tune-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Deploying the Auto-Tune Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-script-permissions-selinux-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Script Permissions &amp; SELinux Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Script Permissions &amp; SELinux Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theory-selinux-policies-on-custom-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory: SELinux Policies on Custom Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-hooking-script-into-postgresql-systemd-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Hooking Script into PostgreSQL Systemd Unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-phase-3-database-engine-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Phase 3: Database Engine Parameter Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Phase 3: Database Engine Parameter Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-theory-key-parameter-tuning-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Theory: Key Parameter Tuning in PostgreSQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Theory: Key Parameter Tuning in PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-management-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Management Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-modifying-parameters-in-postgresqlconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Modifying parameters in postgresql.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-phase-4-postgresql-extensions-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Phase 4: PostgreSQL Extensions Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Phase 4: PostgreSQL Extensions Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-theoretical-overview-of-selected-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Theoretical Overview of Selected Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-step-1-downloading-installing-packages-yumrpm-it-will-be-available-with-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Step 1: Downloading &amp; Installing packages (YUM/RPM) [it will be available with template]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-step-2-creating-extensions-inside-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Step 2: Creating Extensions inside Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-phase-5-backup-business-continuity-bcp-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Phase 5: Backup &amp; Business Continuity (BCP) Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Phase 5: Backup &amp; Business Continuity (BCP) Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-theory-backup-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Theory: Backup Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-directory-configuration-login-with-postgres-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Directory Configuration [login with postgres user]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-bcp-script-deployment-login-as-postgres-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 BCP Script Deployment [login as postgres user]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 BCP Script Deployment [login as postgres user]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-1-wal-archiving-u01gslblobsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 1: WAL Archiving (/u01/Gsl/BLOB.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-2-base-physical-backup-u01gslbasebkpsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 2: Base Physical Backup (/u01/Gsl/BASEBKP.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-3-old-backup-deletion-u01gsldelbasebkpsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 3: Old Backup Deletion (/u01/Gsl/DELBASEBKP.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-4-remote-archive-verification-u01gslarcnamesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 4: Remote Archive Verification (/u01/Gsl/ARCNAME.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-5-long-query-system-performance-analysis-u01gsllong_querysh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 5: Long Query &amp; System Performance Analysis (/u01/Gsl/LONG_QUERY.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-6-azcopy-execution-logs-purge-u01gsldel_azcopy_logsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 6: AzCopy Execution Logs Purge (/u01/Gsl/DEL_AZCOPY_LOG.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-7-azure-monitor-agent-log-purge-u01gsldel_monitor_agentsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script 7: Azure Monitor Agent Log Purge (/u01/Gsl/DEL_MONITOR_AGENT.sh)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-phase-6-automated-operations-setup-cron-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Phase 6: Automated Operations Setup (Cron Jobs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Phase 6: Automated Operations Setup (Cron Jobs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-postgres-user-crontab-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Postgres User Crontab Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-root-user-crontab-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Root User Crontab Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-phase-7-exporter-monitoring-service-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Phase 7: Exporter &amp; Monitoring Service Verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Phase 7: Exporter &amp; Monitoring Service Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-verify-node-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Verify Node Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-verify-postgresql-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Verify PostgreSQL Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-verify-prometheus-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Verify Prometheus Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-phase-8-post-migration-wal-archiving-activation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Phase 8: Post-Migration WAL Archiving Activation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Phase 8: Post-Migration WAL Archiving Activation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-theory-point-in-time-recovery-pitr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Theory: Point In Time Recovery (PITR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-activation-process-post-oracle-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Activation Process (Post Oracle Migration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-phase-9-setting-up-physical-streaming-replication-after-go-live-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Phase 9: Setting up Physical Streaming Replication after go-Live [OPTIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Phase 9: Setting up Physical Streaming Replication after go-Live [OPTIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-streaming-replication-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Streaming Replication Theory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-replication-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Replication Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-replication-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Replication Slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-streaming-replication-setup-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 Streaming Replication Setup Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-monitoring-primary-and-standby-streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 Monitoring Primary and Standby Streaming Replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="comprehensive-postgresql-self-hosted-deployment-runbook">Comprehensive PostgreSQL Self-Hosted Deployment Runbook<a class="headerlink" href="#comprehensive-postgresql-self-hosted-deployment-runbook" title="Permanent link">&para;</a></h1>
+<p>This runbook describes the end-to-end installation, tuning, configuration, and Business Continuity Planning (BCP) setup for a self-hosted PostgreSQL database cluster on Azure's Red Hat Enterprise Linux (RHEL) 8 VM.</p>
+<hr />
+<h2 id="1-runbook-overview">1. Runbook Overview<a class="headerlink" href="#1-runbook-overview" title="Permanent link">&para;</a></h2>
+<h3 id="why-self-hosted-postgresql-sh-pg">Why Self-Hosted PostgreSQL (SH PG)?<a class="headerlink" href="#why-self-hosted-postgresql-sh-pg" title="Permanent link">&para;</a></h3>
+<p>While managed cloud databases (such as Azure Database for PostgreSQL Flexible Server) offer convenience, a self-hosted deployment on a virtual machine (VM) provides:
+- <strong>Deeper Hardware Control:</strong> Direct tuning of the file system, disk configurations (LVM), and kernel/memory optimizations.
+- <strong>Customized Extensions &amp; Versioning:</strong> Integration of specialized packages (e.g., custom builds of <code>pg_proctab</code> or <code>pg_stat_monitor</code>) that might be restricted or unsupported on PaaS.
+- <strong>Advanced Hook Scripts:</strong> Capability to run custom script triggers, such as dynamically tuning configuration parameters during system boot based on the actual allocated VM size.
+- <strong>Cost &amp; Network Topology Control:</strong> Custom BCP pipelines utilizing utilities like <code>azcopy</code> integrated directly with local backup policies, bypassing cloud-managed vendor storage lock-ins.
+- <strong>Public IP Requirements:</strong> Accommodates tools like Qlik which require public IP endpoints, whereas managed Azure instances typically restrict endpoints to private IPs.
+- <strong>Read Replica Access:</strong> Fulfills strict customer demands for direct access to read replicas.
+- <strong>Performance Isolation:</strong> Isolates larger databases on dedicated VMs to avoid "noisy neighbor" latency issues common in shared PaaS environments.</p>
+<hr />
+<h2 id="2-prerequisites-assumptions">2. Prerequisites &amp; Assumptions<a class="headerlink" href="#2-prerequisites-assumptions" title="Permanent link">&para;</a></h2>
+<p>Before starting the deployment, verify the following prerequisites are met:
+1. <strong>VM Provisioning:</strong> A VM provisioned from a RHEL 8 base/clone template containing:
+   - Core operating system installed (Red Hat Enterprise Linux 8).
+   - Minimal PostgreSQL configuration files and binaries installed.
+   - Primary OS hard disk (<code>/dev/&lt;os_disk&gt;</code> or equivalent, 64 GB).
+   - Secondary hard disk allocated for PostgreSQL data storage (<code>/dev/&lt;pg_data_disk&gt;</code> or equivalent).
+2. <strong>Environment Variables:</strong> The <code>postgres</code> user must have <code>$PGDATA</code> configured pointing to the data directory (typically <code>/u01/pgsql/&lt;version&gt;/data</code>).
+3. <strong>Permissions:</strong> Root access (<code>sudo</code>) is required for OS level adjustments.</p>
+<hr />
+<h2 id="3-phase-1-operating-system-configuration">3. Phase 1: Operating System Configuration<a class="headerlink" href="#3-phase-1-operating-system-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="31-cron-job-suspend-pre-configuration-safety">3.1 Cron Job Suspend (Pre-configuration Safety)<a class="headerlink" href="#31-cron-job-suspend-pre-configuration-safety" title="Permanent link">&para;</a></h3>
+<p>To prevent legacy background scripts from executing during VM setup:
+1. Log in as the <code>root</code> and <code>postgres</code> user.
+2. Comment/Disable existing cron jobs by commenting them out:
+   <div class="highlight"><pre><span></span><code>crontab<span class="w"> </span>-e
+<span class="c1"># Prepend a &#39;#&#39; character to all active cron entries</span>
+</code></pre></div></p>
+<h3 id="32-lvm-partition-extension-pgdata-disk-expansion">3.2 LVM Partition Extension (PGDATA Disk Expansion)<a class="headerlink" href="#32-lvm-partition-extension-pgdata-disk-expansion" title="Permanent link">&para;</a></h3>
+<h4 id="theory-logical-volume-management-lvm">Theory: Logical Volume Management (LVM)<a class="headerlink" href="#theory-logical-volume-management-lvm" title="Permanent link">&para;</a></h4>
+<p>LVM abstracts physical storage devices, allowing the operating system to resize storage volumes dynamically without shutting down services. It consists of:
+- <strong>Physical Volume (PV):</strong> The raw hard disk partition (e.g., <code>/dev/&lt;pg_data_disk&gt;</code>).
+- <strong>Volume Group (VG):</strong> A storage pool combining multiple PVs.
+- <strong>Logical Volume (LV):</strong> The virtual partition carved from the VG, which hosts the filesystem (e.g., ext4, xfs).</p>
+<h4 id="commands-to-be-executed-as-root-user-only">Commands [To Be Executed as Root User only]:<a class="headerlink" href="#commands-to-be-executed-as-root-user-only" title="Permanent link">&para;</a></h4>
+<p>To extend the volume hosting <code>/u01/pgsql/&lt;version&gt;/data</code> to use newly allocated VM storage:</p>
+<ol>
+<li>
+<p>Scan and detect the newly allocated disk space:
+   <div class="highlight"><pre><span></span><code><span class="c1"># Resize the physical volume to match the virtual disk capacity</span>
+<span class="w">  </span>pvresize<span class="w"> </span>/dev/<span class="o">{</span>filesystem_device<span class="o">}</span>
+</code></pre></div>
+   <em>(Replace <code>{filesystem_device}</code> with your actual device name, e.g., <code>sdb</code> or <code>nvme0n1</code>)</em>.</p>
+</li>
+<li>
+<p>Extend the logical volume and resize the underlying filesystem concurrently:
+   <div class="highlight"><pre><span></span><code><span class="w">   </span>lvextend<span class="w"> </span>-L<span class="w"> </span>+<span class="o">[</span>Size<span class="o">]</span>G<span class="w"> </span>-r<span class="w"> </span>/dev/<span class="o">[</span>vg_name<span class="o">]</span>/<span class="o">[</span>lv_name<span class="o">]</span>
+</code></pre></div>
+   <em>Note: The <code>-r</code> flag triggers an online resize of the filesystem (XFS or EXT4) automatically.</em></p>
+</li>
+</ol>
+<h3 id="33-hostname-and-network-configuration">3.3 Hostname and Network Configuration<a class="headerlink" href="#33-hostname-and-network-configuration" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Update the hostname to reflect the environment naming conventions (e.g., <code>vm-psql-erp-prod-02</code>):
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>/etc/hostname
+<span class="c1"># Enter the new hostname, save, and exit (Esc, :wq)</span>
+
+or
+
+hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>vm-erpdb-psql-prod-09<span class="w"> </span><span class="o">[</span><span class="nb">set</span><span class="w"> </span>hostname<span class="w"> </span>without<span class="w"> </span>system<span class="w"> </span>reboot<span class="o">]</span>
+</code></pre></div></li>
+</ol>
+<h3 id="34-cleanup-of-legacy-postgresql-directories">3.4 Cleanup of Legacy PostgreSQL Directories<a class="headerlink" href="#34-cleanup-of-legacy-postgresql-directories" title="Permanent link">&para;</a></h3>
+<p>If the VM template was provisioned with an older PostgreSQL version (e.g., version 16), remove its leftover data directory to avoid conflicts:
+<div class="highlight"><pre><span></span><code><span class="c1"># Navigate to the postgres home directory</span>
+<span class="nb">cd</span><span class="w"> </span>/var/lib/pgsql
+
+<span class="c1"># Remove the old version directory</span>
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="m">16</span>
+</code></pre></div></p>
+<ol>
+<li>Validate CPU, memory, and disk allocations:
+   <div class="highlight"><pre><span></span><code>df<span class="w"> </span>-h<span class="w"> </span>/<span class="w"> </span>lsblk<span class="w">      </span><span class="c1"># Check filesystem capacity</span>
+free<span class="w"> </span>-m<span class="w">    </span><span class="c1"># Validate RAM size</span>
+lscpu<span class="w">      </span><span class="c1"># Validate CPU core count</span>
+</code></pre></div></li>
+<li>Restart the virtual machine to apply OS-level configurations:
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>reboot
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="4-phase-2-postgresql-systemd-auto-tuning-configuration">4. Phase 2: PostgreSQL Systemd Auto-Tuning Configuration<a class="headerlink" href="#4-phase-2-postgresql-systemd-auto-tuning-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="41-theory-dynamic-tuning-on-vm-boot">4.1 Theory: Dynamic Tuning on VM Boot<a class="headerlink" href="#41-theory-dynamic-tuning-on-vm-boot" title="Permanent link">&para;</a></h3>
+<p>PostgreSQL does not natively adjust its memory/CPU parameters when host system specifications change (such as adding/Reducing RAM or CPU cores to a VM).
+To resolve this, we configure a systemd <code>ExecStartPre</code> hook. This script executes prior to the engine startup, analyzing the current VM hardware resources, dynamically tuning PostgreSQL configuration variables, and writing them to <code>postgresql.conf</code>.</p>
+<h3 id="42-deploying-the-auto-tune-script">4.2 Deploying the Auto-Tune Script<a class="headerlink" href="#42-deploying-the-auto-tune-script" title="Permanent link">&para;</a></h3>
+<p>Create the directory structure for backups and logs, and create the auto-tune script:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/autotune
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/autotune/config_backup
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/Gsl
+sudo<span class="w"> </span>vi<span class="w"> </span>/u01/Gsl/pg_autotune_systemd.sh
+</code></pre></div></p>
+<p>Insert the following script content (<code>pg_autotune_systemd.sh</code> v4):</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># pg_autotune_systemd.sh — Version 4</span>
+<span class="c1"># Detects hardware changes, modifies postgresql.conf.</span>
+<span class="c1"># Designed exclusively to be run via Systemd ExecStartPre hook.</span>
+<span class="c1">#</span>
+<span class="c1"># V4 Changes:</span>
+<span class="c1">#   - max_parallel_workers_per_gather fallback formula updated to: min(4, CPU/2)</span>
+<span class="c1">#   - Email functionality removed entirely</span>
+<span class="c1"># V3 Changes from V2:</span>
+<span class="c1">#   - shared_buffers      : 25% → 26% of RAM</span>
+<span class="c1">#   - effective_cache_size: 75% → 76% of RAM</span>
+<span class="c1">#   - systemctl log message now uses dynamic PG_VERSION (no hardcoded &#39;16&#39;)</span>
+
+<span class="c1"># --- USER CONFIGURATION ---</span>
+<span class="nv">MAX_CONNECTIONS</span><span class="o">=</span><span class="m">5000</span>
+<span class="nv">WORK_MEM_MB</span><span class="o">=</span><span class="m">1024</span>
+<span class="nv">WAL_BUFFERS_MB</span><span class="o">=</span><span class="m">32</span>
+<span class="nv">TEST_SLEEP_SECONDS</span><span class="o">=</span><span class="m">30</span>
+<span class="c1"># --------------------------</span>
+
+<span class="c1"># --- LOGGING CONFIGURATION ---</span>
+<span class="nv">LOG_DIR</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs/autotune&quot;</span>
+<span class="nv">LOG_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOG_DIR</span><span class="si">}</span><span class="s2">/pg_autotune_</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s1">&#39;%Y%m%d_%H%M%S&#39;</span><span class="k">)</span><span class="s2">.log&quot;</span>
+
+<span class="c1"># Auto-create log directory if it does not exist</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_DIR</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="k">fi</span>
+
+<span class="c1"># Redirect all output to the log file</span>
+<span class="nb">exec</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="c1"># Verify the log file was actually created (exec fails silently if dir is unwritable)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="c1"># Fall back to stderr — visible via: journalctl -u postgresql-PG_VERSION</span>
+<span class="w">    </span><span class="nb">exec</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">] CRITICAL: Cannot write to log file: </span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">] CRITICAL: Check that </span><span class="nv">$LOG_DIR</span><span class="s2"> exists and is writable by root.&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">] CRITICAL: Continuing — all output will appear in journalctl.&quot;</span>
+<span class="k">fi</span>
+
+log<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">] </span><span class="nv">$*</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+log<span class="w"> </span><span class="s2">&quot;=================================================================&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;Executing PostgreSQL Auto-Tune Hook  (v4)&quot;</span>
+<span class="c1"># -----------------------------</span>
+
+<span class="c1"># --- INTERNAL STATE (Do not modify manually) ---</span>
+<span class="nv">LAST_KNOWN_STATE</span><span class="o">=</span><span class="s2">&quot;First Run&quot;</span>
+<span class="c1"># -----------------------------------------------</span>
+
+<span class="c1"># 1. Dynamically Locate postgresql.conf</span>
+log<span class="w"> </span><span class="s2">&quot;Locating postgresql.conf dynamically using PGDATA...&quot;</span>
+
+<span class="c1"># Check if PGDATA is available in the current environment</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PGDATA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PGDATA</span><span class="s2">/postgresql.conf&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PG_CONF</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PGDATA</span><span class="s2">/postgresql.conf&quot;</span>
+<span class="w">    </span><span class="nv">PGDATA_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PGDATA</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="c1"># Attempt to load the postgres user&#39;s environment variables (useful if running from root crontab)</span>
+<span class="w">    </span><span class="nv">PGDATA_ENV</span><span class="o">=</span><span class="k">$(</span>su<span class="w"> </span>-<span class="w"> </span>postgres<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo $PGDATA&#39;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^\s*$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PGDATA_ENV</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PGDATA_ENV</span><span class="s2">/postgresql.conf&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">PG_CONF</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PGDATA_ENV</span><span class="s2">/postgresql.conf&quot;</span>
+<span class="w">        </span><span class="nv">PGDATA_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PGDATA_ENV</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span>log<span class="w"> </span><span class="s2">&quot;CRITICAL: \$PGDATA environment variable is not set or postgresql.conf not found inside it.&quot;</span>
+<span class="w">        </span>log<span class="w"> </span><span class="s2">&quot;Please ensure \$PGDATA is exported, or set PG_CONF manually.&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">fi</span>
+log<span class="w"> </span><span class="s2">&quot;Found PostgreSQL Configuration: </span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span>
+
+<span class="c1"># Dynamically Detect PostgreSQL Version</span>
+<span class="c1"># Note: postgres -V reads the installed binary — does NOT require the service to be running.</span>
+<span class="nv">PG_VERSION</span><span class="o">=</span><span class="k">$(</span>postgres<span class="w"> </span>-V<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $NF}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d.<span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PG_VERSION</span><span class="o">=</span><span class="k">$(</span>psql<span class="w"> </span>-V<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d.<span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">PG_VERSION</span><span class="o">=</span><span class="s2">&quot;17&quot;</span><span class="w"> </span><span class="c1"># Fallback</span>
+<span class="k">fi</span>
+log<span class="w"> </span><span class="s2">&quot;Detected PostgreSQL Version: </span><span class="nv">$PG_VERSION</span><span class="s2">&quot;</span>
+
+<span class="c1"># 2. Detect Hardware</span>
+<span class="nv">TOTAL_RAM_KB</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>MemTotal<span class="w"> </span>/proc/meminfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<span class="nv">TOTAL_RAM_MB</span><span class="o">=</span><span class="k">$((</span><span class="nv">TOTAL_RAM_KB</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">1024</span><span class="k">))</span>
+<span class="nv">TOTAL_RAM_GB</span><span class="o">=</span><span class="k">$((</span><span class="nv">TOTAL_RAM_MB</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">1024</span><span class="k">))</span>
+<span class="nv">CPU_CORES</span><span class="o">=</span><span class="k">$(</span>nproc<span class="k">)</span>
+
+log<span class="w"> </span><span class="s2">&quot;Detected Hardware: </span><span class="si">${</span><span class="nv">TOTAL_RAM_MB</span><span class="si">}</span><span class="s2">MB RAM  |  </span><span class="si">${</span><span class="nv">CPU_CORES</span><span class="si">}</span><span class="s2"> CPU Cores&quot;</span>
+
+<span class="nv">CURRENT_STATE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TOTAL_RAM_MB</span><span class="si">}</span><span class="s2">MB_RAM-</span><span class="si">${</span><span class="nv">CPU_CORES</span><span class="si">}</span><span class="s2">_CPUS&quot;</span>
+
+<span class="c1"># 3. Hardware Change Validation (Self-contained)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CURRENT_STATE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LAST_KNOWN_STATE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;Hardware unchanged (</span><span class="nv">$CURRENT_STATE</span><span class="s2">). Skipping auto-tune process.&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+log<span class="w"> </span><span class="s2">&quot;=================================================================&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;HARDWARE CHANGE DETECTED!&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;Previous Hardware: </span><span class="nv">$LAST_KNOWN_STATE</span><span class="s2">&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;New Hardware:      </span><span class="nv">$CURRENT_STATE</span><span class="s2">&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;=================================================================&quot;</span>
+
+<span class="c1"># 4. Memory Parameters (Local Math)</span>
+<span class="c1"># shared_buffers      = 26% of OS-visible physical RAM (MemTotal)</span>
+<span class="c1"># effective_cache_size= 76% of OS-visible physical RAM (MemTotal)  [planner hint only]</span>
+<span class="c1"># maintenance_work_mem= 5% of RAM (RAM_GB / 20), minimum 1 GB</span>
+<span class="nv">SHARED_BUFFERS_MB</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="o">(</span><span class="nv">TOTAL_RAM_MB</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">26</span><span class="o">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="k">))</span>
+<span class="nv">EFFECTIVE_CACHE_MB</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="o">(</span><span class="nv">TOTAL_RAM_MB</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">76</span><span class="o">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="k">))</span>
+
+<span class="nv">MAINT_WORK_MEM_GB</span><span class="o">=</span><span class="k">$((</span><span class="nv">TOTAL_RAM_GB</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">20</span><span class="k">))</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MAINT_WORK_MEM_GB</span><span class="s2">&quot;</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">MAINT_WORK_MEM_GB</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="nv">MAINT_WORK_MEM_MB</span><span class="o">=</span><span class="k">$((</span><span class="nv">MAINT_WORK_MEM_GB</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1024</span><span class="k">))</span>
+
+<span class="c1"># work_mem and wal_buffers are static — set via USER CONFIGURATION block above</span>
+
+<span class="c1"># 5. CPU/Parallel Parameters (API with Local Fallback)</span>
+<span class="nv">API_URL</span><span class="o">=</span><span class="s2">&quot;https://api.pgconfig.org/v1/tuning/get-config?format=conf&amp;max_connections=</span><span class="si">${</span><span class="nv">MAX_CONNECTIONS</span><span class="si">}</span><span class="s2">&amp;pg_version=</span><span class="si">${</span><span class="nv">PG_VERSION</span><span class="si">}</span><span class="s2">&amp;environment_name=OLTP&amp;total_ram=</span><span class="si">${</span><span class="nv">TOTAL_RAM_GB</span><span class="si">}</span><span class="s2">&amp;cpus=</span><span class="si">${</span><span class="nv">CPU_CORES</span><span class="si">}</span><span class="s2">&amp;drive_type=SSD&amp;arch=x86-64&amp;os_type=linux&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;Calling pgconfig.org API for CPU/parallel parameters...&quot;</span>
+<span class="nv">API_CONF</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_URL</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;max_parallel_workers&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;API call succeeded. Parsing CPU parameters from response.&quot;</span>
+<span class="w">    </span><span class="nv">MAX_WORKER_PROCESSES</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;^max_worker_processes&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">MAX_PARALLEL_WORKERS</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;^max_parallel_workers &quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">MAX_PARALLEL_WORKERS_PER_GATHER</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$API_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;^max_parallel_workers_per_gather&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">)</span>
+<span class="k">else</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;API call failed or timed out. Using local fallback math for CPU parameters.&quot;</span>
+<span class="w">    </span><span class="nv">MAX_WORKER_PROCESSES</span><span class="o">=</span><span class="nv">$CPU_CORES</span>
+<span class="w">    </span><span class="nv">MAX_PARALLEL_WORKERS</span><span class="o">=</span><span class="nv">$CPU_CORES</span>
+<span class="w">    </span><span class="c1"># Formula: min(4, Total CPU Cores / 2)</span>
+<span class="w">    </span><span class="nv">MAX_PARALLEL_WORKERS_PER_GATHER</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="o">(</span><span class="nv">CPU_CORES</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>?<span class="w"> </span><span class="o">(</span><span class="nv">CPU_CORES</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>:<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="k">))</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MAX_PARALLEL_WORKERS_PER_GATHER</span><span class="s2">&quot;</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">MAX_PARALLEL_WORKERS_PER_GATHER</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">fi</span>
+
+<span class="c1"># 6. Backup the Configuration</span>
+<span class="nv">TIMESTAMP</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y%m%d_%H%M%S&quot;</span><span class="k">)</span>
+<span class="nv">BACKUP_PATH</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs/autotune/config_backup/postgresql.conf.backup.</span><span class="si">${</span><span class="nv">TIMESTAMP</span><span class="si">}</span><span class="s2">&quot;</span>
+cp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BACKUP_PATH</span><span class="s2">&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;Backed up </span><span class="nv">$PG_CONF</span><span class="s2"> to </span><span class="nv">$BACKUP_PATH</span><span class="s2">&quot;</span>
+
+<span class="c1"># 7. Direct File Modification Function</span>
+<span class="c1"># Logs a before-and-after trace for every parameter change.</span>
+set_pg_param<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">key</span><span class="o">=</span><span class="nv">$1</span>
+<span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">val</span><span class="o">=</span><span class="nv">$2</span>
+<span class="w">    </span><span class="nb">local</span><span class="w"> </span>prev_val
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-qE<span class="w"> </span><span class="s2">&quot;^\s*#?\s*</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2">\s*=&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">prev_val</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^\s*#?\s*</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2">\s*=&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span>
+<span class="w">        </span>sed<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;s/^\s*#?\s*</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2">\s*=.*/</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2"> = </span><span class="si">${</span><span class="nv">val</span><span class="si">}</span><span class="s2">/g&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span>
+<span class="w">        </span>log<span class="w"> </span><span class="s2">&quot;Updated parameter:  [</span><span class="si">${</span><span class="nv">prev_val</span><span class="si">}</span><span class="s2">]   ---&gt;   [</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2"> = </span><span class="si">${</span><span class="nv">val</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2"> = </span><span class="si">${</span><span class="nv">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_CONF</span><span class="s2">&quot;</span>
+<span class="w">        </span>log<span class="w"> </span><span class="s2">&quot;Added NEW parameter:   [</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2"> = </span><span class="si">${</span><span class="nv">val</span><span class="si">}</span><span class="s2">]&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="c1"># Apply parameters</span>
+log<span class="w"> </span><span class="s2">&quot;Applying optimized configurations to postgresql.conf...&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;shared_buffers&quot;</span><span class="w">               </span><span class="s2">&quot;&#39;</span><span class="si">${</span><span class="nv">SHARED_BUFFERS_MB</span><span class="si">}</span><span class="s2">MB&#39;&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;effective_cache_size&quot;</span><span class="w">         </span><span class="s2">&quot;&#39;</span><span class="si">${</span><span class="nv">EFFECTIVE_CACHE_MB</span><span class="si">}</span><span class="s2">MB&#39;&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;maintenance_work_mem&quot;</span><span class="w">         </span><span class="s2">&quot;&#39;</span><span class="si">${</span><span class="nv">MAINT_WORK_MEM_MB</span><span class="si">}</span><span class="s2">MB&#39;&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;work_mem&quot;</span><span class="w">                     </span><span class="s2">&quot;&#39;</span><span class="si">${</span><span class="nv">WORK_MEM_MB</span><span class="si">}</span><span class="s2">MB&#39;&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;wal_buffers&quot;</span><span class="w">                  </span><span class="s2">&quot;&#39;</span><span class="si">${</span><span class="nv">WAL_BUFFERS_MB</span><span class="si">}</span><span class="s2">MB&#39;&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;max_worker_processes&quot;</span><span class="w">         </span><span class="s2">&quot;</span><span class="nv">$MAX_WORKER_PROCESSES</span><span class="s2">&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;max_parallel_workers&quot;</span><span class="w">         </span><span class="s2">&quot;</span><span class="nv">$MAX_PARALLEL_WORKERS</span><span class="s2">&quot;</span>
+set_pg_param<span class="w"> </span><span class="s2">&quot;max_parallel_workers_per_gather&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$MAX_PARALLEL_WORKERS_PER_GATHER</span><span class="s2">&quot;</span>
+
+<span class="c1"># 8. (Restart logic removed - handled natively by systemd)</span>
+
+<span class="c1"># 9. Update Self-Contained State</span>
+<span class="nv">SCRIPT_PATH</span><span class="o">=</span><span class="k">$(</span>readlink<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;s/^LAST_KNOWN_STATE=.*/LAST_KNOWN_STATE=\&quot;</span><span class="nv">$CURRENT_STATE</span><span class="s2">\&quot;/&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_PATH</span><span class="s2">&quot;</span>
+log<span class="w"> </span><span class="s2">&quot;Process complete. State saved inside script.&quot;</span>
+
+<span class="c1"># 10. Testing Gap (set TEST_SLEEP_SECONDS=0 in production)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TEST_SLEEP_SECONDS</span><span class="s2">&quot;</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;TESTING MODE: Sleeping for </span><span class="si">${</span><span class="nv">TEST_SLEEP_SECONDS</span><span class="si">}</span><span class="s2"> seconds to demonstrate ExecStartPre gap.&quot;</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;You can check &#39;systemctl status postgresql-</span><span class="si">${</span><span class="nv">PG_VERSION</span><span class="si">}</span><span class="s2">&#39; in another terminal now.&quot;</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;The database engine will not start until this sleep finishes.&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TEST_SLEEP_SECONDS</span><span class="s2">&quot;</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">&quot;Sleep finished. Handing control back to systemd native auto-startup...&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+<h3 id="43-script-permissions-selinux-configuration">4.3 Script Permissions &amp; SELinux Configuration<a class="headerlink" href="#43-script-permissions-selinux-configuration" title="Permanent link">&para;</a></h3>
+<h4 id="theory-selinux-policies-on-custom-services">Theory: SELinux Policies on Custom Services<a class="headerlink" href="#theory-selinux-policies-on-custom-services" title="Permanent link">&para;</a></h4>
+<p>SELinux (Security-Enhanced Linux) enforces Mandatory Access Control. When systemd attempts to run a script located in custom mounts (like <code>/u01/</code>), SELinux blocks execution unless the script is assigned the standard system binary domain context (<code>bin_t</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Grant execution permissions</span>
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/u01/Gsl/pg_autotune_systemd.sh
+
+<span class="c1"># Apply SELinux binary execution labeling</span>
+sudo<span class="w"> </span>chcon<span class="w"> </span>-t<span class="w"> </span>bin_t<span class="w"> </span>/u01/Gsl/pg_autotune_systemd.sh
+
+<span class="c1"># Ensure the postgres user owns the entire /u01 directory tree</span>
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>postgres:postgres<span class="w"> </span>/u01
+</code></pre></div>
+<h3 id="44-hooking-script-into-postgresql-systemd-unit">4.4 Hooking Script into PostgreSQL Systemd Unit<a class="headerlink" href="#44-hooking-script-into-postgresql-systemd-unit" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Edit the systemd service file for the PostgreSQL engine:
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span>/usr/lib/systemd/system/postgresql-&lt;version&gt;.service
+</code></pre></div></li>
+<li>Locate the line beginning with <code>ExecStartPre=</code>.</li>
+<li>Add the custom hook execution rule <strong>directly above</strong> the default directory check line:
+   <div class="highlight"><pre><span></span><code><span class="c1"># Add this line (the &#39;+&#39; instructs systemd to execute it with root permissions):</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">+/u01/Gsl/pg_autotune_systemd.sh</span>
+
+<span class="c1"># Just above:</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/usr/pgsql-&lt;version&gt;/bin/postgresql-&lt;version&gt;-check-db-dir ${PGDATA}</span>
+</code></pre></div></li>
+<li>Reload the systemd daemon to pick up configuration changes:
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="5-phase-3-database-engine-parameter-tuning">5. Phase 3: Database Engine Parameter Tuning<a class="headerlink" href="#5-phase-3-database-engine-parameter-tuning" title="Permanent link">&para;</a></h2>
+<h3 id="51-theory-key-parameter-tuning-in-postgresql">5.1 Theory: Key Parameter Tuning in PostgreSQL<a class="headerlink" href="#51-theory-key-parameter-tuning-in-postgresql" title="Permanent link">&para;</a></h3>
+<p>By default, PostgreSQL installation configurations are very conservative (designed for low-resource environments). For large, high-capacity databases, adjusting parameters optimizes CPU cycle distribution, memory usage, write traffic, and vacuum behavior:</p>
+<ul>
+<li><strong>Memory Settings (<code>work_mem</code>, <code>shared_buffers</code>):</strong> Determines the maximum RAM allocated for internal sort operations, hash tables, and database caching.</li>
+<li><strong>Autovacuum Optimization:</strong> In high-write environments, default values fail to keep up with dead tuple generation, leading to table bloat. Reducing scale factors triggers autovacuuming much faster.</li>
+<li><strong>Logical Replication (For Insightx Sync):</strong> Configures logical replication parameters, allowing external consumers to stream data changes (CDC) from WAL logs.</li>
+</ul>
+<h4 id="configuration-management-breakdown">Configuration Management Breakdown<a class="headerlink" href="#configuration-management-breakdown" title="Permanent link">&para;</a></h4>
+<p>The following table outlines the total parameters modified in this deployment and specifies whether they are handled dynamically by the auto-tune hook script or manually during deployment in <code>postgresql.conf</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Managed By</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shared_buffers</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>RAM allocated for database caching.</td>
+</tr>
+<tr>
+<td><code>effective_cache_size</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Planner hint for disk cache size.</td>
+</tr>
+<tr>
+<td><code>maintenance_work_mem</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Memory for indexes/maintenance (vacuum).</td>
+</tr>
+<tr>
+<td><code>work_mem</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Memory limit for sorting/joins.</td>
+</tr>
+<tr>
+<td><code>wal_buffers</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Memory allocation for WAL data.</td>
+</tr>
+<tr>
+<td><code>max_worker_processes</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Upper limit on concurrent background workers.</td>
+</tr>
+<tr>
+<td><code>max_parallel_workers</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Limit on active parallel query workers.</td>
+</tr>
+<tr>
+<td><code>max_parallel_workers_per_gather</code></td>
+<td><code>pgautotune.sh</code></td>
+<td>Parallel workers allowed per execution query.</td>
+</tr>
+<tr>
+<td><code>track_io_timing</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Collect stats on read/write latency.</td>
+</tr>
+<tr>
+<td><code>track_activity_query_size</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Allocate larger buffer for SQL query logging.</td>
+</tr>
+<tr>
+<td><code>temp_buffers</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Cache size allocated for temporary tables.</td>
+</tr>
+<tr>
+<td><code>effective_io_concurrency</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Number of concurrent disk operations (for SSDs).</td>
+</tr>
+<tr>
+<td><code>random_page_cost</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Relative index disk read cost estimate.</td>
+</tr>
+<tr>
+<td><code>seq_page_cost</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Relative sequential page access cost.</td>
+</tr>
+<tr>
+<td><code>autovacuum_max_workers</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Max concurrent autovacuum processes.</td>
+</tr>
+<tr>
+<td><code>autovacuum_vacuum_scale_factor</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Clean dead tuples after % rows change limit.</td>
+</tr>
+<tr>
+<td><code>autovacuum_vacuum_insert_scale_factor</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Clean tables after % inserts limit.</td>
+</tr>
+<tr>
+<td><code>autovacuum_vacuum_cost_delay</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Sleep time limit when vacuum reaches limit.</td>
+</tr>
+<tr>
+<td><code>log_autovacuum_min_duration</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Log autovacuum runs taking longer than limit.</td>
+</tr>
+<tr>
+<td><code>max_prepared_transactions</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Support for concurrent prepared/2PC transactions.</td>
+</tr>
+<tr>
+<td><code>max_connections</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Concurrent connection capacity limit.</td>
+</tr>
+<tr>
+<td><code>shared_preload_libraries</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Preload extension libraries.</td>
+</tr>
+<tr>
+<td><code>cron.database_name</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Target database for pg_cron extension.</td>
+</tr>
+<tr>
+<td><code>cron.timezone</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Timezone configured for pg_cron jobs.</td>
+</tr>
+<tr>
+<td><code>cron.max_running_jobs</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Maximum concurrent pg_cron jobs allowed.</td>
+</tr>
+<tr>
+<td><code>wal_level</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Enable CDC logical replication streams.</td>
+</tr>
+<tr>
+<td><code>max_replication_slots</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Concurrent replication stream connections limit.</td>
+</tr>
+<tr>
+<td><code>max_wal_senders</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Senders running parallel logical transactions.</td>
+</tr>
+<tr>
+<td><code>sync_replication_slots</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Sync replication slot details across restarts.</td>
+</tr>
+<tr>
+<td><code>min_wal_size</code> / <code>max_wal_size</code></td>
+<td>Manual (Section 5.2)</td>
+<td>Sizing limits for WAL segments.</td>
+</tr>
+<tr>
+<td><code>archive_mode</code></td>
+<td>Post-Migration</td>
+<td>Enable continuous WAL archiving for PITR.</td>
+</tr>
+<tr>
+<td><code>archive_command</code></td>
+<td>Post-Migration</td>
+<td>Shell command (<code>BLOB.sh</code>) to transfer WAL segments.</td>
+</tr>
+<tr>
+<td><code>archive_timeout</code></td>
+<td>Post-Migration</td>
+<td>Force WAL rotation after timeout (120s).</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Point-in-Time Recovery (PITR) parameters (<code>archive_mode</code>, <code>archive_command</code>, and <code>archive_timeout</code>) are documented here for completeness, but they must be <strong>manually enabled post-migration</strong> to avoid heavy archiving operations during the initial bulk data migration.</p>
+</blockquote>
+<h3 id="52-modifying-parameters-in-postgresqlconf">5.2 Modifying parameters in <code>postgresql.conf</code><a class="headerlink" href="#52-modifying-parameters-in-postgresqlconf" title="Permanent link">&para;</a></h3>
+<p>Open the PostgreSQL configuration file:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span><span class="nv">$PGDATA</span>/postgresql.conf
+</code></pre></div>
+Update or append the following values:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># --- Performance &amp; Resource Configurations ---</span>
+<span class="na">track_io_timing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span><span class="w">                    </span><span class="c1"># Collect stats on read/write latency</span>
+<span class="na">track_activity_query_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">102400</span><span class="w">       </span><span class="c1"># Allocate larger buffer for SQL query logging</span>
+<span class="na">temp_buffers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1GB&#39;</span><span class="w">                    </span><span class="c1"># Cache size allocated for temporary tables</span>
+<span class="na">effective_io_concurrency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span><span class="w">          </span><span class="c1"># Number of concurrent disk operations (for SSDs)</span>
+<span class="na">random_page_cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1.1</span><span class="w">                  </span><span class="c1"># Relative index disk read cost estimate (1.1 for SSD)</span>
+<span class="na">seq_page_cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2.0</span><span class="w">                     </span><span class="c1"># Relative sequential page access cost</span>
+
+<span class="c1"># --- Autovacuum Tuning (Reduce Bloat) ---</span>
+<span class="na">autovacuum_max_workers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">6</span><span class="w">               </span><span class="c1"># Max concurrent autovacuum processes</span>
+<span class="na">autovacuum_vacuum_scale_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.05</span><span class="w">    </span><span class="c1"># Clean dead tuples after 5% of rows change (default 20%)</span>
+<span class="na">autovacuum_vacuum_insert_scale_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.05</span><span class="w"> </span><span class="c1"># Clean tables after 5% of inserts</span>
+<span class="na">autovacuum_vacuum_cost_delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span><span class="w">         </span><span class="c1"># Sleep time limit (ms) when vacuum reaches limit</span>
+<span class="na">log_autovacuum_min_duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">60000</span><span class="w">     </span><span class="c1"># Log autovacuum runs taking longer than 60s</span>
+
+<span class="c1"># --- System-Wide Limits ---</span>
+<span class="na">max_prepared_transactions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1750</span><span class="w">        </span><span class="c1"># Support up to 1750 concurrent prepared/2PC transactions</span>
+<span class="na">max_connections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">5000</span><span class="w">                   </span><span class="c1"># Concurrent connection capacity limit</span>
+
+<span class="c1"># --- Extensions preloading ---</span>
+<span class="na">shared_preload_libraries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;pg_cron,pgaudit,pg_stat_statements&#39;</span>
+
+<span class="c1"># --- pg_cron Extension Settings ---</span>
+<span class="na">cron.database_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;postgres&#39;</span>
+<span class="na">cron.timezone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Asia/Kolkata&#39;</span>
+<span class="na">cron.max_running_jobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span>
+
+<span class="c1"># --- Insightx / Replication Configurations ---</span>
+<span class="na">wal_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">replica</span><span class="w">                     </span><span class="c1"># Enable CDC logical replication streams</span>
+<span class="na">max_replication_slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span><span class="w">             </span><span class="c1"># Allow up to 100 concurrent replication stream connections</span>
+<span class="na">max_wal_senders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span><span class="w">                   </span><span class="c1"># Senders running parallel logical transactions</span>
+<span class="na">sync_replication_slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span><span class="w">           </span><span class="c1"># Sync replication slot details to prevent loss</span>
+<span class="na">min_wal_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;1GB&#39;</span>
+<span class="na">max_wal_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;10GB&#39;</span>
+
+<span class="c1"># --- Point-in-Time Recovery (PITR) / Archiving ---</span>
+<span class="c1"># NOTE: Enable these parameters MANUALLY POST-MIGRATION to avoid excessive wal accumulation and server storage exhaustion</span>
+<span class="c1"># archive generation during initial bulk data loads.</span>
+<span class="w"> </span><span class="na">archive_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span>
+<span class="w"> </span><span class="na">archive_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;/u01/Gsl/BLOB.sh %p %f&#39;</span>
+<span class="w"> </span><span class="na">archive_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">120</span>
+</code></pre></div>
+<p>Restart the PostgreSQL service to apply the values:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>postgresql-&lt;version&gt;
+</code></pre></div></p>
+<hr />
+<h2 id="6-phase-4-postgresql-extensions-installation">6. Phase 4: PostgreSQL Extensions Installation<a class="headerlink" href="#6-phase-4-postgresql-extensions-installation" title="Permanent link">&para;</a></h2>
+<h3 id="61-theoretical-overview-of-selected-extensions">6.1 Theoretical Overview of Selected Extensions<a class="headerlink" href="#61-theoretical-overview-of-selected-extensions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>pg_cron:</strong> A cron job scheduler that runs directly inside the database, enabling <code>VACUUM</code> scheduling or operational SQL tasks.</li>
+<li><strong>pg_stat_statements:</strong> Tracks runtime statistics of all queries run on the database (essential for database performance diagnostics).</li>
+<li><strong>pgaudit:</strong> Provides structured logging of select operations (DML/DDL) for security auditing.</li>
+</ul>
+<h3 id="62-step-1-downloading-installing-packages-yumrpm-it-will-be-available-with-template">6.2 Step 1: Downloading &amp; Installing packages (YUM/RPM) [it will be available with template]<a class="headerlink" href="#62-step-1-downloading-installing-packages-yumrpm-it-will-be-available-with-template" title="Permanent link">&para;</a></h3>
+<p>Run the following commands as the <code>root</code> user to fetch matching versions of extensions from the PGDG Yum repository:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Download extension packages (Ensure version matches PostgreSQL main engine)</span>
+wget<span class="w"> </span>https://ftp.postgresql.org/pub/repos/yum/&lt;version&gt;/redhat/rhel-8-x86_64/pgaudit_&lt;version&gt;-17.1-1PGDG.rhel8.x86_64.rpm
+wget<span class="w"> </span>https://ftp.postgresql.org/pub/repos/yum/&lt;version&gt;/redhat/rhel-8-x86_64/pg_cron_&lt;version&gt;-1.6.7-1PGDG.rhel8.x86_64.rpm
+
+<span class="c1"># 2. Local RPM package installation</span>
+sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>pgaudit_&lt;version&gt;-17.1-1PGDG.rhel8.x86_64.rpm
+sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>pg_cron_&lt;version&gt;-1.6.7-1PGDG.rhel8.x86_64.rpm
+</code></pre></div>
+<h3 id="63-step-2-creating-extensions-inside-database">6.3 Step 2: Creating Extensions inside Database<a class="headerlink" href="#63-step-2-creating-extensions-inside-database" title="Permanent link">&para;</a></h3>
+<p>Log in to PostgreSQL using the <code>psql</code> console as a superuser:
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>postgres
+</code></pre></div>
+Run the following DDL statements to load the extensions:
+<div class="highlight"><pre><span></span><code><span class="c1">-- Core extensions setup</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">DICT_INT</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">DBLINK</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">FUZZYSTRMATCH</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PG_BUFFERCACHE</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PG_CRON</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PG_STAT_STATEMENTS</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PGAUDIT</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PGCRYPTO</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">PGSTATTUPLE</span><span class="p">;</span><span class="w">        </span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="n">POSTGRES_FDW</span><span class="p">;</span>
+
+<span class="k">alter</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;postgres&#39;</span><span class="p">;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="7-phase-5-backup-business-continuity-bcp-setup">7. Phase 5: Backup &amp; Business Continuity (BCP) Setup<a class="headerlink" href="#7-phase-5-backup-business-continuity-bcp-setup" title="Permanent link">&para;</a></h2>
+<h3 id="71-theory-backup-architecture">7.1 Theory: Backup Architecture<a class="headerlink" href="#71-theory-backup-architecture" title="Permanent link">&para;</a></h3>
+<p>The BCP setup is divided into:
+1. <strong>WAL Archiving:</strong> Copying transaction logs (WALs) continuously to Azure Blob Storage using <code>azcopy</code>.
+2. <strong>Physical Backups (<code>pg_basebackup</code>):</strong> Generating a full physical snapshot of the database cluster on a schedule, copying it to cloud storage, and verifying backups.
+3. <strong>Log &amp; Agent Housekeeping:</strong> System health validation scripts and automated retention cleanups.</p>
+<h3 id="72-directory-configuration-login-with-postgres-user">7.2 Directory Configuration [login with postgres user]<a class="headerlink" href="#72-directory-configuration-login-with-postgres-user" title="Permanent link">&para;</a></h3>
+<p>Create the operational hierarchy:
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/Gsl/SQL
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/arc_sync
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/list_delete_selfhosted
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/long_query
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/AZCOPY_DEL
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/logs/MONITOR_AGENT
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/arc_list
+mkdir<span class="w"> </span>-p<span class="w"> </span>/u01/backup/PG
+</code></pre></div></p>
+<hr />
+<h3 id="73-bcp-script-deployment-login-as-postgres-user">7.3 BCP Script Deployment [login as postgres user]<a class="headerlink" href="#73-bcp-script-deployment-login-as-postgres-user" title="Permanent link">&para;</a></h3>
+<p>Create all scripts under the <code>/u01/Gsl/</code> directory.</p>
+<h4 id="script-1-wal-archiving-u01gslblobsh">Script 1: WAL Archiving (<code>/u01/Gsl/BLOB.sh</code>)<a class="headerlink" href="#script-1-wal-archiving-u01gslblobsh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Copy transaction log files (WAL) to Azure Blob Storage as they are filled or timeout.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/BLOB.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># BLOB.sh - Archive single WAL file to Azure Storage</span>
+
+<span class="c1"># --- User Configuration Variables ---</span>
+<span class="nv">BASE_URL</span><span class="o">=</span><span class="s2">&quot;https://storageerpbackupprodjiw.blob.core.windows.net/pgdbbackup&quot;</span>
+<span class="nv">VM_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;&lt;vm_hostname&gt;&quot;</span>
+<span class="nv">SAS_TOKEN</span><span class="o">=</span><span class="s2">&quot;&lt;SAS_TOKEN&gt;&quot;</span>
+<span class="c1"># ------------------------------------</span>
+
+<span class="nv">date_dir</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y_%m_%d<span class="k">)</span>
+<span class="nv">WAL_FILE_PATH</span><span class="o">=</span><span class="nv">$1</span><span class="w">   </span>
+<span class="nv">WAL_FILE_NAME</span><span class="o">=</span><span class="nv">$2</span><span class="w">   </span>
+<span class="nv">logfile</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs/arc_sync&quot;</span>
+
+<span class="nv">BLOB_STORAGE_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/self-hosted/</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2">/archive/</span><span class="si">${</span><span class="nv">date_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">WAL_FILE_NAME</span><span class="si">}</span><span class="s2">?</span><span class="si">${</span><span class="nv">SAS_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span>
+
+/usr/bin/azcopy<span class="w"> </span>copy<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WAL_FILE_PATH</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BLOB_STORAGE_URL</span><span class="s2">&quot;</span><span class="w"> </span>--log-level<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span>--overwrite<span class="o">=</span><span class="nb">true</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$logfile</span>/blob_archive.log
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Failed to archive WAL file to Blob Storage: </span><span class="nv">$WAL_FILE_NAME</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$logfile</span>/blob_archive.log
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/BLOB.sh
+</code></pre></div></p>
+<h4 id="script-2-base-physical-backup-u01gslbasebkpsh">Script 2: Base Physical Backup (<code>/u01/Gsl/BASEBKP.sh</code>)<a class="headerlink" href="#script-2-base-physical-backup-u01gslbasebkpsh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Create a physical backup snapshot, sync files to Azure container, and send success/fail alert email.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/BASEBKP.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># BASEBKP.sh - Database physical base backup</span>
+
+<span class="c1"># --- User Configuration Variables ---</span>
+<span class="nv">BASE_URL</span><span class="o">=</span><span class="s2">&quot;https://storageerpbackupprodjiw.blob.core.windows.net/pgdbbackup&quot;</span>
+<span class="nv">VM_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;&lt;vm_hostname&gt;&quot;</span>
+<span class="nv">SAS_TOKEN</span><span class="o">=</span><span class="s2">&quot;&lt;SAS_TOKEN&gt;&quot;</span>
+<span class="nv">PG_VERSION</span><span class="o">=</span><span class="s2">&quot;16&quot;</span>
+
+<span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span>
+<span class="nv">SMTP_APP_PASSWORD</span><span class="o">=</span><span class="s2">&quot;oegmwnlfdtdpmvix&quot;</span>
+<span class="nv">ALERT_TO</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">ALERT_FROM</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.gmail.com:587&quot;</span>
+<span class="c1"># ------------------------------------</span>
+
+<span class="nv">yy</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y<span class="k">)</span>
+<span class="nv">mm</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%m<span class="k">)</span>
+<span class="nv">dd</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%d<span class="k">)</span>
+<span class="nv">MYDATE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">yy</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">mm</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">dd</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">MYTIME</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span>+%H%M%S<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">DD</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%d%m%y<span class="k">)</span>
+
+<span class="nv">PGUSER</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span>
+<span class="nb">export</span><span class="w"> </span>PGPASSWORD
+<span class="nb">export</span><span class="w"> </span>PGUSER
+
+<span class="nv">CMD_M</span><span class="o">=</span>mailx
+<span class="nv">PG_BASEBACKUP_LOG</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs&quot;</span>
+<span class="nv">Azure_Log</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/GINESYS_backuplog.log&quot;</span>
+<span class="nv">POSTGRESQL_BIN</span><span class="o">=</span><span class="s2">&quot;/usr/pgsql-</span><span class="si">${</span><span class="nv">PG_VERSION</span><span class="si">}</span><span class="s2">/bin&quot;</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">&quot;</span>
+
+<span class="nv">start_time</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span>
+<span class="nv">start_time_human</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting Pg_basebackup at </span><span class="nv">$start_time_human</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/pg_basebackup_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Running pg_basebackup command...&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/pg_basebackup_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span>
+
+<span class="nv">$POSTGRESQL_BIN</span>/pg_basebackup<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;/u01/backup/PG/</span><span class="nv">$MYDATE</span><span class="s2">&quot;</span><span class="w"> </span>-Ft<span class="w"> </span>-z<span class="w"> </span>-P<span class="w"> </span>-Xs<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/pg_basebackup_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="nv">end_time</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span>
+<span class="nv">end_time_human</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span>
+<span class="nv">elapsed_time</span><span class="o">=</span><span class="k">$((</span><span class="nv">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">start_time</span><span class="k">))</span>
+<span class="nv">elapsed_time_human</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-ud<span class="w"> </span>@<span class="si">${</span><span class="nv">elapsed_time</span><span class="si">}</span><span class="w"> </span>+<span class="s1">&#39;%H:%M:%S&#39;</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ending Pg_basebackup at </span><span class="nv">$end_time_human</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/pg_basebackup_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Elapsed time: </span><span class="nv">$elapsed_time_human</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PG_BASEBACKUP_LOG</span><span class="s2">/pg_basebackup_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;---------------------------------&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Azure_Log</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Syncing files to Azure storage&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Azure_Log</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;---------------------------------&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Azure_Log</span><span class="s2">&quot;</span>
+
+<span class="nv">sourcePath</span><span class="o">=</span><span class="s2">&quot;/u01/backup/PG&quot;</span>
+<span class="nv">destinationUrl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/self-hosted/</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2">/fullbackup/?</span><span class="si">${</span><span class="nv">SAS_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span>
+
+/usr/bin/azcopy<span class="w"> </span>sync<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$sourcePath</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$destinationUrl</span><span class="s2">&quot;</span><span class="w"> </span>--put-md5<span class="w"> </span>--delete-destination<span class="o">=</span><span class="nb">false</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Azure_Log</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: PG BASE BACKUP&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">$CMD_M</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$PG_BASEBACKUP_LOG</span>/pg_basebackup_<span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span>_<span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span>.log<span class="w"> </span>-v<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: PG BASEBACKUP INFORMATION </span><span class="si">${</span><span class="nv">DD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span><span class="nv">smtp</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_SERVER</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-use-starttls<span class="w"> </span>-S<span class="w"> </span>smtp-auth<span class="o">=</span>login<span class="w"> </span>-S<span class="w"> </span>smtp-auth-user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-auth-password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_APP_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>ssl-verify<span class="o">=</span>ignore<span class="w"> </span><span class="nv">$ALERT_TO</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/BASEBKP.sh
+</code></pre></div></p>
+<h4 id="script-3-old-backup-deletion-u01gsldelbasebkpsh">Script 3: Old Backup Deletion (<code>/u01/Gsl/DELBASEBKP.sh</code>)<a class="headerlink" href="#script-3-old-backup-deletion-u01gsldelbasebkpsh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Delete local backups older than 24 hours (1440 mins) to prevent disk space exhaustion.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/DELBASEBKP.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># DELBASEBKP.sh - Housekeeping backup deletion script</span>
+
+<span class="c1"># --- User Configuration Variables ---</span>
+<span class="nv">VM_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;&lt;vm_hostname&gt;&quot;</span>
+<span class="nv">SMTP_APP_PASSWORD</span><span class="o">=</span><span class="s2">&quot;oegmwnlfdtdpmvix&quot;</span>
+<span class="nv">ALERT_TO</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">ALERT_FROM</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.gmail.com:587&quot;</span>
+<span class="c1"># ------------------------------------</span>
+
+<span class="nv">CMD_M</span><span class="o">=</span>mailx
+<span class="nv">DD</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%d%m%y<span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_DIR</span><span class="o">=</span>/u01/backup/logs/list_delete_selfhosted
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_FILE</span><span class="o">=</span><span class="nv">$LOG_DIR</span>/list_delete_selfhosted_<span class="k">$(</span>date<span class="w"> </span>+%Y-%m-%d_%H_%M<span class="k">)</span>.log
+
+<span class="nb">cd</span><span class="w"> </span>/u01/backup/PG
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/backup mountpoint size before deletion&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+df<span class="w"> </span>-h<span class="w"> </span>/u01<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;THE LIST OF THE BACKUP FILES THAT ARE DELETED&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;*********************************************&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+find<span class="w"> </span>/u01/backup/PG/*<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-empty<span class="w"> </span>-delete
+find<span class="w"> </span>/u01/backup/PG/*<span class="w"> </span>-mmin<span class="w"> </span>+1440<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+find<span class="w"> </span>/u01/backup/PG/*<span class="w"> </span>-mmin<span class="w"> </span>+1440<span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/backup mountpoint size after deletion&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+df<span class="w"> </span>-h<span class="w"> </span>/u01<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: file delete did not complete.&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Success.&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: OLD PG BASE BACKUP DELETION&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">$CMD_M</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$LOG_FILE</span><span class="w"> </span>-v<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: OLD PG BASEBACKUP DELETION INFORMATION </span><span class="si">${</span><span class="nv">DD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span><span class="nv">smtp</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_SERVER</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-use-starttls<span class="w"> </span>-S<span class="w"> </span>smtp-auth<span class="o">=</span>login<span class="w"> </span>-S<span class="w"> </span>smtp-auth-user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-auth-password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_APP_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>ssl-verify<span class="o">=</span>ignore<span class="w"> </span><span class="nv">$ALERT_TO</span>
+<span class="k">fi</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/DELBASEBKP.sh
+</code></pre></div></p>
+<h4 id="script-4-remote-archive-verification-u01gslarcnamesh">Script 4: Remote Archive Verification (<code>/u01/Gsl/ARCNAME.sh</code>)<a class="headerlink" href="#script-4-remote-archive-verification-u01gslarcnamesh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Verify files stored in Azure against internal Postgres database state using <code>pg_split_walfile_name</code>.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/ARCNAME.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># ARCNAME.sh - Compare remote storage logs with database segment logs</span>
+
+<span class="c1"># --- User Configuration Variables ---</span>
+<span class="nv">BASE_URL</span><span class="o">=</span><span class="s2">&quot;https://storageerpbackupprodjiw.blob.core.windows.net/pgdbbackup&quot;</span>
+<span class="nv">VM_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;&lt;vm_hostname&gt;&quot;</span>
+<span class="nv">SAS_TOKEN</span><span class="o">=</span><span class="s2">&quot;&lt;SAS_TOKEN&gt;&quot;</span>
+<span class="c1"># ------------------------------------</span>
+
+<span class="nv">date_dir</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y_%m_%d<span class="k">)</span>
+<span class="nv">log_file</span><span class="o">=</span><span class="s2">&quot;/u01/backup/arc_list/arcname_</span><span class="si">${</span><span class="nv">date_dir</span><span class="si">}</span><span class="s2">.log&quot;</span>
+<span class="nv">AZ_LIST_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/self-hosted/</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2">/archive/</span><span class="si">${</span><span class="nv">date_dir</span><span class="si">}</span><span class="s2">?</span><span class="si">${</span><span class="nv">SAS_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nv">files</span><span class="o">=</span><span class="k">$(</span>/usr/bin/azcopy<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AZ_LIST_URL</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;;&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+
+<span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>file<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">continue</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$log_file</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">continue</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="nv">pg_command</span><span class="o">=</span><span class="s2">&quot;select pg_split_walfile_name(&#39;</span><span class="nv">$file</span><span class="s2">&#39;);&quot;</span>
+<span class="w">    </span><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>postgres<span class="w"> </span>-t<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$pg_command</span><span class="s2">&quot;</span><span class="k">)</span>
+
+<span class="w">    </span><span class="nv">file_creation_time_utc</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-u<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">file_creation_time_ist</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file_creation_time_utc</span><span class="s2"> UTC +5 hours 30 minutes&quot;</span><span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span>
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="nv">$file_creation_time_utc</span><span class="s2"> UTC | </span><span class="nv">$file_creation_time_ist</span><span class="s2"> IST] </span><span class="nv">$file</span><span class="s2"> || </span><span class="nv">$output</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$log_file</span><span class="s2">&quot;</span>
+<span class="k">done</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$files</span><span class="s2">&quot;</span>
+
+<span class="nv">AZ_COPY_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_URL</span><span class="si">}</span><span class="s2">/self-hosted/</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2">/archive/</span><span class="si">${</span><span class="nv">date_dir</span><span class="si">}</span><span class="s2">/?</span><span class="si">${</span><span class="nv">SAS_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span>
+/usr/bin/azcopy<span class="w"> </span>copy<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$log_file</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AZ_COPY_URL</span><span class="s2">&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/ARCNAME.sh
+</code></pre></div></p>
+<h4 id="script-5-long-query-system-performance-analysis-u01gsllong_querysh">Script 5: Long Query &amp; System Performance Analysis (<code>/u01/Gsl/LONG_QUERY.sh</code>)<a class="headerlink" href="#script-5-long-query-system-performance-analysis-u01gsllong_querysh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Record daily active SQL operations, OS load averages, and disk metrics, and email details to the admin team.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/LONG_QUERY.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># LONG_QUERY.sh - System diagnostics and active SQL monitor</span>
+
+<span class="c1"># --- User Configuration Variables ---</span>
+<span class="nv">VM_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;&lt;vm_hostname&gt;&quot;</span>
+<span class="nv">PGPASSWORD</span><span class="o">=</span><span class="s2">&quot;&lt;postgres_user_password&gt;&quot;</span>
+
+<span class="nv">SMTP_APP_PASSWORD</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">ALERT_TO</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">ALERT_FROM</span><span class="o">=</span><span class="s2">&quot;dbsrvalerts@gsl.in&quot;</span>
+<span class="nv">SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.gmail.com:587&quot;</span>
+<span class="c1"># ------------------------------------</span>
+
+<span class="nb">export</span><span class="w"> </span>PGPASSWORD
+
+<span class="nv">yy</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y<span class="k">)</span>
+<span class="nv">mm</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%m<span class="k">)</span>
+<span class="nv">dd</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%d<span class="k">)</span>
+<span class="nv">MYDATE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">yy</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">mm</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">dd</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">MYTIME</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span>+%H%M%S<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">LOGFILE</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs/long_query/Long_Query_</span><span class="si">${</span><span class="nv">MYDATE</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">MYTIME</span><span class="si">}</span><span class="s2">.log&quot;</span>
+<span class="nv">DD</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%d%m%y<span class="k">)</span>
+<span class="nv">CMD_M</span><span class="o">=</span>mailx
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PRODUCTION SERVER DISK SPACE START</span>
+<span class="s2">***********************************************************************************************************************&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOGFILE</span><span class="si">}</span>
+df<span class="w"> </span>-h<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$LOGFILE</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PRODUCTION SERVER DISK SPACE END</span>
+<span class="s2">***********************************************************************************************************************&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOGFILE</span><span class="si">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SYSTEM TOP LOAD PROCESSES</span>
+<span class="s2">***********************************************************************************************************************&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOGFILE</span><span class="si">}</span>
+top<span class="w"> </span>-b<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$LOGFILE</span>
+
+psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>postgres<span class="w"> </span>-f<span class="w"> </span>/u01/Gsl/SQL/daily_query.sql<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOGFILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: PG LONG QUERY INFO&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">$CMD_M</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$LOGFILE</span><span class="w"> </span>-v<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VM_HOSTNAME</span><span class="si">}</span><span class="s2"> STANDALONE: PG LONG QUERY INFORMATION </span><span class="si">${</span><span class="nv">DD</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span><span class="nv">smtp</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_SERVER</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-use-starttls<span class="w"> </span>-S<span class="w"> </span>smtp-auth<span class="o">=</span>login<span class="w"> </span>-S<span class="w"> </span>smtp-auth-user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ALERT_FROM</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>smtp-auth-password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SMTP_APP_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span>ssl-verify<span class="o">=</span>ignore<span class="w"> </span><span class="nv">$ALERT_TO</span>
+
+<span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<em>(Ensure that <code>/u01/Gsl/SQL/daily_query.sql</code> exists and contains performance checking SQL statements).</em>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/LONG_QUERY.sh
+</code></pre></div></p>
+<h4 id="script-6-azcopy-execution-logs-purge-u01gsldel_azcopy_logsh">Script 6: AzCopy Execution Logs Purge (<code>/u01/Gsl/DEL_AZCOPY_LOG.sh</code>)<a class="headerlink" href="#script-6-azcopy-execution-logs-purge-u01gsldel_azcopy_logsh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Remove historical log output created by <code>azcopy</code> runs older than 1 day to prevent file index exhaustion inside <code>/var/lib/pgsql/.azcopy/</code>.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/DEL_AZCOPY_LOG.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># DEL_AZCOPY_LOG.sh - Clean up AzCopy run directory logs</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_DIR</span><span class="o">=</span>/u01/backup/logs/AZCOPY_DEL
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_FILE</span><span class="o">=</span><span class="nv">$LOG_DIR</span>/list_delete_azcopy_logs_<span class="k">$(</span>date<span class="w"> </span>+%Y-%m-%d_%H_%M<span class="k">)</span>.log
+
+<span class="nv">SEARCH_DIR</span><span class="o">=</span><span class="s2">&quot;/var/lib/pgsql/.azcopy/&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/.azcopy size before deletion&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+du<span class="w"> </span>-sh<span class="w"> </span><span class="nv">$SEARCH_DIR</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+
+find<span class="w"> </span><span class="nv">$SEARCH_DIR</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+1<span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span>-exec<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Removed file: {}&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$LOG_FILE</span><span class="w"> </span><span class="se">\;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/.azcopy size after deletion&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+du<span class="w"> </span>-sh<span class="w"> </span><span class="nv">$SEARCH_DIR</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">LOG_FILE</span><span class="si">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;File listing completed and saved to </span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/u01/Gsl/DEL_AZCOPY_LOG.sh
+</code></pre></div></p>
+<h4 id="script-7-azure-monitor-agent-log-purge-u01gsldel_monitor_agentsh">Script 7: Azure Monitor Agent Log Purge (<code>/u01/Gsl/DEL_MONITOR_AGENT.sh</code>)<a class="headerlink" href="#script-7-azure-monitor-agent-log-purge-u01gsldel_monitor_agentsh" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Purge event metrics (.sst) generated by Azure Monitor Agent older than 14 days.
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>/u01/Gsl/DEL_MONITOR_AGENT.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># DEL_MONITOR_AGENT.sh - Clean old SST telemetry files</span>
+
+<span class="nv">LOG_DIR</span><span class="o">=</span><span class="s2">&quot;/u01/backup/logs/MONITOR_AGENT&quot;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$LOG_DIR</span>
+<span class="nv">LOG_FILE</span><span class="o">=</span><span class="nv">$LOG_DIR</span>/list_delete_sst_logs_<span class="k">$(</span>date<span class="w"> </span>+%Y-%m-%d_%H_%M<span class="k">)</span>.log
+<span class="nv">SEARCH_DIR</span><span class="o">=</span><span class="s2">&quot;/var/opt/microsoft/azuremonitoragent/events&quot;</span>
+
+<span class="o">{</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;====================================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot; SST CLEANUP SCRIPT LOG - </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;====================================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[1] </span><span class="nv">$SEARCH_DIR</span><span class="s2"> size BEFORE deletion:&quot;</span>
+du<span class="w"> </span>-sh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SEARCH_DIR</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[2] Files to be deleted (older than 14 days):&quot;</span>
+find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SEARCH_DIR</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sst&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+14<span class="w"> </span>-path<span class="w"> </span><span class="s2">&quot;*/c*/*&quot;</span><span class="w"> </span>-ls
+<span class="o">}</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+
+find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SEARCH_DIR</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sst&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+14<span class="w"> </span>-path<span class="w"> </span><span class="s2">&quot;*/c*/*&quot;</span><span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="o">{</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[3] </span><span class="nv">$SEARCH_DIR</span><span class="s2"> size AFTER deletion:&quot;</span>
+du<span class="w"> </span>-sh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SEARCH_DIR</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cleanup completed at </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;====================================================&quot;</span>
+<span class="o">}</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/u01/Gsl/DEL_MONITOR_AGENT.sh
+</code></pre></div></p>
+<hr />
+<h2 id="8-phase-6-automated-operations-setup-cron-jobs">8. Phase 6: Automated Operations Setup (Cron Jobs)<a class="headerlink" href="#8-phase-6-automated-operations-setup-cron-jobs" title="Permanent link">&para;</a></h2>
+<p>We configure the cron scheduler to trigger our scripts.</p>
+<h3 id="81-postgres-user-crontab-setup">8.1 Postgres User Crontab Setup<a class="headerlink" href="#81-postgres-user-crontab-setup" title="Permanent link">&para;</a></h3>
+<p>Open the postgres user crontab editor:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>postgres<span class="w"> </span>crontab<span class="w"> </span>-e
+</code></pre></div>
+Insert the following schedule entries (uncomment when deployment goes active):
+<div class="highlight"><pre><span></span><code># Trigger database backup every evening at 18:35 (6:35 PM)
+35 18 * * * sh /u01/Gsl/BASEBKP.sh
+
+# Run local backup housekeeping cleanups at 18:31 (6:31 PM)
+31 18 * * * sh /u01/Gsl/DELBASEBKP.sh
+
+# Run active long query diagnostics execution every 30 minutes
+*/30 * * * * sh /u01/Gsl/LONG_QUERY.sh
+
+# Run verification of remote archived files against postgres database state every minute
+*/1 * * * * sh /u01/Gsl/ARCNAME.sh
+
+# Purge old AzCopy logs every night at 20:00 (8:00 PM)
+00 20 * * * sh /u01/Gsl/DEL_AZCOPY_LOG.sh
+
+# Track storage and disk spaces every 30 minutes
+*/30 * * * * sh /u01/Gsl/Disk_usage.sh
+</code></pre></div></p>
+<h3 id="82-root-user-crontab-setup">8.2 Root User Crontab Setup<a class="headerlink" href="#82-root-user-crontab-setup" title="Permanent link">&para;</a></h3>
+<p>Open the root user crontab editor:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>crontab<span class="w"> </span>-e
+</code></pre></div>
+Insert the following scheduling policy:
+<div class="highlight"><pre><span></span><code># Clean Azure Monitor Agent events folder every evening at 20:05 (8:05 PM)
+05 20 * * * sh /u01/Gsl/DEL_MONITOR_AGENT.sh
+</code></pre></div></p>
+<hr />
+<h2 id="9-phase-7-exporter-monitoring-service-verification">9. Phase 7: Exporter &amp; Monitoring Service Verification<a class="headerlink" href="#9-phase-7-exporter-monitoring-service-verification" title="Permanent link">&para;</a></h2>
+<p>Since monitoring agents are pre-installed via the initial VM template, this phase verifies that the necessary telemetry services are active and running correctly before handing over to operations.</p>
+<h3 id="91-verify-node-exporter">9.1 Verify Node Exporter<a class="headerlink" href="#91-verify-node-exporter" title="Permanent link">&para;</a></h3>
+<p>Ensure the Node Exporter service (for OS-level metrics) is active and listening:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>node_exporter
+<span class="c1"># Output should show &quot;active (running)&quot;</span>
+</code></pre></div></p>
+<h3 id="92-verify-postgresql-exporter">9.2 Verify PostgreSQL Exporter<a class="headerlink" href="#92-verify-postgresql-exporter" title="Permanent link">&para;</a></h3>
+<p>Ensure the PostgreSQL Exporter service (for database-level metrics) is active:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>postgres_exporter
+<span class="c1"># Output should show &quot;active (running)&quot;</span>
+</code></pre></div></p>
+<h3 id="93-verify-prometheus-service">9.3 Verify Prometheus Service<a class="headerlink" href="#93-verify-prometheus-service" title="Permanent link">&para;</a></h3>
+<p>Ensure the Prometheus time-series database is active:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>prometheus
+<span class="c1"># Output should show &quot;active (running)&quot;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="10-phase-8-post-migration-wal-archiving-activation">10. Phase 8: Post-Migration WAL Archiving Activation<a class="headerlink" href="#10-phase-8-post-migration-wal-archiving-activation" title="Permanent link">&para;</a></h2>
+<h3 id="101-theory-point-in-time-recovery-pitr">10.1 Theory: Point In Time Recovery (PITR)<a class="headerlink" href="#101-theory-point-in-time-recovery-pitr" title="Permanent link">&para;</a></h3>
+<p>To achieve data durability, transaction records (WAL files) must be continuously archived. By setting <code>archive_mode = on</code> and configuring <code>archive_command</code> to execute our <code>BLOB.sh</code> script, PostgreSQL ensures every transaction log segment is copied to remote cloud storage before it is recycled locally. This enables recovering the database up to the exact millisecond of a failure.</p>
+<h3 id="102-activation-process-post-oracle-migration">10.2 Activation Process (Post Oracle Migration)<a class="headerlink" href="#102-activation-process-post-oracle-migration" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete migration data verification checkouts.</li>
+<li>Edit <code>postgresql.conf</code>:
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>vi<span class="w"> </span><span class="nv">$PGDATA</span>/postgresql.conf
+</code></pre></div></li>
+<li>Update the parameters to enable the pipeline:
+   <div class="highlight"><pre><span></span><code><span class="na">archive_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span>
+<span class="na">archive_command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;/u01/Gsl/BLOB.sh %p %f&#39;</span>
+<span class="na">archive_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">120</span>
+</code></pre></div></li>
+<li>Restart the database engine to start logging to Azure Storage:
+   <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>postgresql-&lt;version&gt;
+</code></pre></div></li>
+<li>Verify archives are successfully transferring to cloud container storage by checking:</li>
+<li><code>/u01/backup/logs/arc_sync/blob_archive.log</code></li>
+<li>Remote Azure Storage container path <code>/archive/</code>.</li>
+</ol>
+<hr />
+<h2 id="additional-configuration">Additional Configuration<a class="headerlink" href="#additional-configuration" title="Permanent link">&para;</a></h2>
+<blockquote>
+<ul>
+<li><strong>PGGDBA Configuration:</strong> To configure the <code>pggdba</code> database for tracking historical size and growth data, please refer to the independent <strong>PGGDBA Runbook Documentation</strong>.</li>
+<li><strong>Grafana Configuration:</strong> To configure Grafana for live monitoring of the new instance, please refer to the independent <strong>Grafana Dashboard Runbook Documentation</strong>.</li>
+</ul>
+</blockquote>
+<h2 id="11-phase-9-setting-up-physical-streaming-replication-after-go-live-optional">11. Phase 9: Setting up Physical Streaming Replication after go-Live [OPTIONAL]<a class="headerlink" href="#11-phase-9-setting-up-physical-streaming-replication-after-go-live-optional" title="Permanent link">&para;</a></h2>
+<h3 id="111-streaming-replication-theory">11.1 Streaming Replication Theory<a class="headerlink" href="#111-streaming-replication-theory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>WAL record chunks are streamed by database servers to keep data in sync.</li>
+<li>The standby server connects to the master to receive the WAL chunks.</li>
+<li>The WAL records are streamed as they are generated.</li>
+<li>The streaming of WAL records need not wait for the WAL file to be filled.</li>
+<li>This allows a standby server to stay more up-to-date than is possible with file-based log shipping.</li>
+<li>By default, streaming replication is asynchronous even though it also supports synchronous replication.</li>
+</ul>
+<h3 id="112-replication-parameters">11.2 Replication Parameters<a class="headerlink" href="#112-replication-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wal_level</code></td>
+<td><code>replica</code></td>
+<td>Level of info written to WAL; <code>replica</code> supports archiving and read-only queries on standby.</td>
+</tr>
+<tr>
+<td><code>wal_log_hints</code></td>
+<td><code>on</code></td>
+<td>Required for <code>pg_rewind</code> capability when standby goes out of sync with master.</td>
+</tr>
+<tr>
+<td><code>max_wal_senders</code></td>
+<td><code>integer</code></td>
+<td>Max concurrent running WAL sender processes (default 10; 0 disables replication).</td>
+</tr>
+<tr>
+<td><code>wal_keep_segments</code></td>
+<td><code>integer</code></td>
+<td>Min number of past log file segments kept in the <code>pg_wal</code> directory for standby fetch.</td>
+</tr>
+<tr>
+<td><code>hot_standby</code></td>
+<td><code>on</code></td>
+<td>Enables read-only connection on the node when it is in standby role.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="113-replication-slots">11.3 Replication Slots<a class="headerlink" href="#113-replication-slots" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A replication slot is used to retain the WAL files when the standby goes offline or disconnected.</li>
+<li>The master server uses replication slots to keep track of how much the standby lags and retain the WAL files it needs until the standby reconnects again.</li>
+<li>Replication slots came in with PostgreSQL 9.4, before that the <code>wal_keep_segments</code> parameter used to govern how many wal files need to be maintained.</li>
+<li>Replication slots have to be created manually and the default value is 10.</li>
+<li>PostgreSQL Replication slots are of two types:</li>
+<li>Physical replication slots</li>
+<li>Logical replication slots</li>
+</ul>
+<h3 id="114-streaming-replication-setup-steps">11.4 Streaming Replication Setup Steps<a class="headerlink" href="#114-streaming-replication-setup-steps" title="Permanent link">&para;</a></h3>
+<p><strong>On Master Node:</strong>
+<strong>Step 1:</strong> Setup the following postgres config in <code>postgresql.conf</code>:
+<div class="highlight"><pre><span></span><code><span class="na">listen_addresses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+<span class="na">wal_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">replica</span>
+<span class="na">hot_standby</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on</span>
+</code></pre></div></p>
+<p><strong>Step 2:</strong> Create or alter a user to use replication encrypted password:
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="k">ENCRYPTED</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;&lt;password&gt;&#39;</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>Step 3:</strong> Modify <code>pg_hba.conf</code> to allow replication connections. Add the IP addresses of both master and standby with the <code>md5</code> method:
+<div class="highlight"><pre><span></span><code>host    replication    postgres    &lt;primary_ip&gt;/32      md5
+host    replication    postgres    &lt;standby_ip&gt;/32      md5
+</code></pre></div></p>
+<p><strong>Step 4:</strong> Reload/restart the configuration.
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>postgresql-&lt;version&gt;
+</code></pre></div></p>
+<p><strong>On Standby Node:</strong>
+<strong>Step 5:</strong> Stop the postgresql service on the standby node.
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>postgresql-&lt;version&gt;
+</code></pre></div></p>
+<p><strong>Step 6:</strong> Delete all the files under the data directory.
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>/u01/pgsql/&lt;version&gt;/data/*
+</code></pre></div></p>
+<p><strong>Step 7:</strong> Run <code>pg_basebackup</code> to clone the standby instance:
+<div class="highlight"><pre><span></span><code>pg_basebackup<span class="w"> </span>-h<span class="w"> </span>&lt;primary_ip&gt;<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-D<span class="w"> </span>/u01/pgsql/&lt;version&gt;/data<span class="w"> </span>-Fp<span class="w"> </span>-Xs<span class="w"> </span>-P<span class="w"> </span>-R<span class="w"> </span>-C<span class="w"> </span>-S<span class="w"> </span>pgstandby
+</code></pre></div></p>
+<blockquote>
+<p><strong>Note:</strong> Here <code>-S pgstandby</code> represents a replication slot.</p>
+</blockquote>
+<p><strong>Step 8:</strong> Start the postgresql service on the standby node.
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>postgresql-&lt;version&gt;
+</code></pre></div></p>
+<p><strong>Step 9:</strong> Test replication by creating a table in primary and checking standby.</p>
+<h3 id="115-monitoring-primary-and-standby-streaming-replication">11.5 Monitoring Primary and Standby Streaming Replication<a class="headerlink" href="#115-monitoring-primary-and-standby-streaming-replication" title="Permanent link">&para;</a></h3>
+<p><strong>On Primary:</strong>
+- Check stream replication slots information:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_replication_slots</span><span class="p">;</span>
+</code></pre></div></p>
+<ul>
+<li>Check PG replication status:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_stat_replication</span><span class="p">;</span>
+</code></pre></div><blockquote>
+<p><strong>Note:</strong> 0 lag indicates no gap between primary and secondary.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>On Standby:</strong>
+- Check if secondary cluster is in recovery mode or not:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">pg_is_in_recovery</span><span class="p">();</span>
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
